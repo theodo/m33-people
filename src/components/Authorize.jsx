@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from 'react-toolbox/lib/button';
 import {List, ListItem} from 'react-toolbox/lib/list';
+import itemStyle from './item.scss';
 
 class AuthorizeButton extends React.Component {
   constructor (props) {
@@ -31,7 +32,9 @@ class AuthorizeButton extends React.Component {
       return null
     } else {
       return (
-        <Button onClick={this.authorize.bind(this)} raised primary label='Connect To Trello' />
+        <div className={itemStyle.authorizeContainer}>
+          <Button className='authorize-button' onClick={this.authorize.bind(this)} raised primary label='Connect To Trello' />
+        </div>
       );
     }
   }
