@@ -1,5 +1,6 @@
 {
- "name": "App",
+  "name": "TA People",
+  "short_name": "TA People",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
@@ -36,6 +37,10 @@
    "sizes": "192x192",
    "type": "image\/png",
    "density": "4.0"
-  }
- ]
+ }
+ ],
+ "start_url": "/ta-dir/index.html",
+ "display": "standalone",
+ "background_color": "#FAFAFA",
+ "theme_color": "#FAFAFA"
 }
