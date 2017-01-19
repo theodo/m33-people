@@ -10,7 +10,7 @@ class Layout extends Component {
   state = {
     index: 0,
     isAuthenticated: window.localStorage.getItem('ta_dir_trello_token') !== null,
-    companies: [],
+    companies: window.localStorage.getItem('ta_dir_companies') || [],
   };
 
   componentDidMount() {
@@ -52,14 +52,16 @@ class Layout extends Component {
       window.Trello.get('/boards/JLBMh7wp/cards?attachments=true', (cards) => {
         const people = sortBy(cards.map(this.parsePeople), 'name')
         const peopleByCompanyId = groupBy(people, 'companyId')
+        const companies = lists.map(list => {
+          return {
+            id: list.id,
+            name: list.name,
+            people: peopleByCompanyId[list.id] || []
+          }
+        })
+        window.localStorage.setItem('ta_dir_companies', companies)
         this.setState({
-          companies: lists.map(list => {
-            return {
-              id: list.id,
-              name: list.name,
-              people: peopleByCompanyId[list.id] || []
-            }
-          })
+          companies: companies
         });
       })
     })
