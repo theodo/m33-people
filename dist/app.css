@@ -3137,7 +3137,8 @@
   border-radius: 0.2rem; }
 .item__icon___noe5w {
   font-size: 2.8rem;
-  color: #333; }
+  color: #333;
+  margin-right: -10px; }
 
 .item__authorizeContainer___1m-2g {
   display: -webkit-box;
