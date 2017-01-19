@@ -21561,7 +21561,7 @@
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Layout.__proto__ || Object.getPrototypeOf(Layout)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      index: 0,
 	      isAuthenticated: window.localStorage.getItem('ta_dir_trello_token') !== null,
-	      companies: window.localStorage.getItem('ta_dir_companies') || []
+	      companies: JSON.parse(window.localStorage.getItem('ta_dir_companies')) || []
 	    }, _this.handleTabChange = function (index) {
 	      _this.setState({ index: index });
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -21615,7 +21615,7 @@
 	              people: peopleByCompanyId[list.id] || []
 	            };
 	          });
-	          window.localStorage.setItem('ta_dir_companies', companies);
+	          window.localStorage.setItem('ta_dir_companies', JSON.stringify(companies));
 	          _this2.setState({
 	            companies: companies
 	          });

@@ -1,5 +1,5 @@
 
-var current_version = 'ta-dir-v2';
+var current_version = 'ta-dir-v3';
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -14,6 +14,8 @@ self.addEventListener('install', e => {
         '/ta-dir/icons/favicon-16x16.png',
         '/ta-dir/icons/favicon-32x32.png',
         '/ta-dir/icons/favicon-96x96.png',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       ])
       .then(() => self.skipWaiting());
     })

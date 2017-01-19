@@ -10,7 +10,7 @@ class Layout extends Component {
   state = {
     index: 0,
     isAuthenticated: window.localStorage.getItem('ta_dir_trello_token') !== null,
-    companies: window.localStorage.getItem('ta_dir_companies') || [],
+    companies: JSON.parse(window.localStorage.getItem('ta_dir_companies')) || [],
   };
 
   componentDidMount() {
@@ -59,7 +59,7 @@ class Layout extends Component {
             people: peopleByCompanyId[list.id] || []
           }
         })
-        window.localStorage.setItem('ta_dir_companies', companies)
+        window.localStorage.setItem('ta_dir_companies', JSON.stringify(companies))
         this.setState({
           companies: companies
         });
