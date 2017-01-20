@@ -1,5 +1,5 @@
 
-var current_version = 'ta-dir-v3';
+var current_version = 'ta-dir-v4';
 
 self.addEventListener('install', e => {
   e.waitUntil(
