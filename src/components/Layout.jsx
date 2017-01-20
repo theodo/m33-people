@@ -5,6 +5,7 @@ import map from 'lodash/map';
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import itemStyle from './item.scss';
+import tabStyle from './tabs.scss';
 
 class Layout extends Component {
   state = {
@@ -104,13 +105,14 @@ class Layout extends Component {
     const tabs = this.state.companies.map(company => {
       return (
         <Tab key={company.id} label={company.name}>
+          <Link href='https://trello.com/b/JLBMh7wp/theodo-github-io-ta-dir'>Add someone</Link>
           {this.renderList(company.people)}
         </Tab>
       )
     })
 
     return (
-      <Tabs index={this.state.index} onChange={this.handleTabChange} fixed inverse>
+      <Tabs index={this.state.index} onChange={this.handleTabChange} fixed inverse theme={tabStyle}>
         {tabs}
       </Tabs>
     );
