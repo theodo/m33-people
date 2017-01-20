@@ -3152,6 +3152,18 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
+.tabs__navigation___uyRn2 {
+  position: fixed;
+  background-color: #FFF;
+  z-index: 100000;
+  width: 100%; }
+
+.tabs__pointer___19J85 {
+  position: fixed;
+  z-index: 100001; }
+
+.tabs__tab___2O4sC {
+  margin-top: 38px; }
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Change the default font family in all browsers (opinionated).

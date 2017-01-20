@@ -58,7 +58,7 @@
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	__webpack_require__(584);
+	__webpack_require__(585);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21536,6 +21536,10 @@
 
 	var _item2 = _interopRequireDefault(_item);
 
+	var _tabs = __webpack_require__(584);
+
+	var _tabs2 = _interopRequireDefault(_tabs);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21664,13 +21668,18 @@
 	        return _react2.default.createElement(
 	          _reactToolbox.Tab,
 	          { key: company.id, label: company.name },
+	          _react2.default.createElement(
+	            _reactToolbox.Link,
+	            { href: 'https://trello.com/b/JLBMh7wp/theodo-github-io-ta-dir' },
+	            'Add someone'
+	          ),
 	          _this3.renderList(company.people)
 	        );
 	      });
 
 	      return _react2.default.createElement(
 	        _reactToolbox.Tabs,
-	        { index: this.state.index, onChange: this.handleTabChange, fixed: true, inverse: true },
+	        { index: this.state.index, onChange: this.handleTabChange, fixed: true, inverse: true, theme: _tabs2.default },
 	        tabs
 	      );
 	    }
@@ -43051,6 +43060,13 @@
 
 /***/ },
 /* 584 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"navigation":"tabs__navigation___uyRn2","pointer":"tabs__pointer___19J85","tab":"tabs__tab___2O4sC"};
+
+/***/ },
+/* 585 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
