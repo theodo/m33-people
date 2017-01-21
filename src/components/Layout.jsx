@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import {Tab, Tabs, List, ListItem, ListDivider, Link} from 'react-toolbox';
+import {Tab, Tabs, List, ListItem, ListDivider, Link, Input} from 'react-toolbox';
 import AuthorizeButton from './Authorize.jsx';
+import People from '../services/People';
 import map from 'lodash/map';
-import groupBy from 'lodash/groupBy';
-import sortBy from 'lodash/sortBy';
 import itemStyle from './item.scss';
 import tabStyle from './tabs.scss';
+import inputStyle from './input.scss';
 
 class Layout extends Component {
+  searchText = '';
   state = {
     index: 0,
     isAuthenticated: window.localStorage.getItem('ta_dir_trello_token') !== null,
@@ -18,7 +19,11 @@ class Layout extends Component {
     if (this.state.isAuthenticated) {
       const token = window.localStorage.getItem('ta_dir_trello_token');
       window.Trello.setToken(token)
-      this.getTabs()
+      People.getCompanies((companies) => {
+        this.setState({
+          companies: companies,
+        });
+      });
     }
   }
 
@@ -26,46 +31,8 @@ class Layout extends Component {
     this.setState({index});
   };
 
-  parsePeople(someoneCard) {
-    var avatar = null
-    if (someoneCard.attachments.length > 0) {
-      avatar = someoneCard.attachments[0].url
-    }
-
-    const phoneRegex = /\[PHONE=(.+)\]/g
-    const phoneMatch = phoneRegex.exec(someoneCard.desc)
-
-    var phone = null
-    if (phoneMatch) {
-      phone = phoneMatch[1]
-    }
-
-    return {
-      name: someoneCard.name,
-      avatar: avatar,
-      companyId: someoneCard.idList,
-      phone: phone,
-    }
-  }
-
-  getTabs() {
-    window.Trello.get('/boards/JLBMh7wp/lists?fields=name', (lists) => {
-      window.Trello.get('/boards/JLBMh7wp/cards?attachments=true', (cards) => {
-        const people = sortBy(cards.map(this.parsePeople), 'name')
-        const peopleByCompanyId = groupBy(people, 'companyId')
-        const companies = lists.map(list => {
-          return {
-            id: list.id,
-            name: list.name,
-            people: peopleByCompanyId[list.id] || []
-          }
-        })
-        window.localStorage.setItem('ta_dir_companies', JSON.stringify(companies))
-        this.setState({
-          companies: companies
-        });
-      })
-    })
+  handleSearchChange = (value) => {
+    this.setState({companies: People.searchPeople(value)});
   }
 
   onSignInSuccess() {
@@ -99,7 +66,7 @@ class Layout extends Component {
 
   renderTabs() {
     if (this.state.companies.length === 0) {
-      return null;
+      return (<div className={inputStyle.noResults}>No results</div>);
     }
 
     const tabs = this.state.companies.map(company => {
@@ -127,7 +94,18 @@ class Layout extends Component {
       )
     }
     else {
-      return this.renderTabs()
+      const tabs = this.renderTabs()
+      return (
+        <div>
+          <Input
+            type="text"
+            placeholder="Search a name"
+            onChange={this.handleSearchChange.bind(this)}
+            theme={inputStyle}
+          />
+          {tabs}
+        </div>
+      )
     }
   }
 }
