@@ -79,7 +79,7 @@ class Layout extends Component {
     })
 
     return (
-      <Tabs index={this.state.index} onChange={this.handleTabChange} fixed inverse theme={tabStyle}>
+      <Tabs index={this.state.index} onChange={this.handleTabChange} inverse theme={tabStyle}>
         {tabs}
       </Tabs>
     );
