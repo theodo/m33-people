@@ -1,14 +1,16 @@
 .navigation {
   position: fixed;
+  top: 35px;
   background-color: #FFF;
   z-index: 100000;
   width: 100%;
 }
 .pointer {
   position: fixed;
+  top: 82px !important;
   z-index: 100001;
 
 }
 .tab {
-  margin-top: 38px;
+  margin-top: 80px;
 }

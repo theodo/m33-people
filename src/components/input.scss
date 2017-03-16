@@ -1,0 +1,14 @@
+.input {
+  position: fixed;
+  padding: 0 10px;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
+}
+
+.noResults {
+  text-align: center;
+  padding-top: 30px;
+  color: grey;
+}
