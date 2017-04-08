@@ -3,14 +3,13 @@ import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 
 var companies = [];
-const phoneRegex = /\[PHONE=(.+)\]/g;
 
 const parsePeople = (someoneCard) => {
   var avatar = null;
   if (someoneCard.attachments.length > 0) {
     avatar = someoneCard.attachments[0].url
   }
-
+  const phoneRegex = /\[PHONE=(.+)\]/g;
   const phoneMatch = phoneRegex.exec(someoneCard.desc);
   var phone = null;
   if (phoneMatch) {
