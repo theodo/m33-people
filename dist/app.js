@@ -21663,7 +21663,7 @@
 	          null,
 	          _react2.default.createElement(_reactToolbox.Input, {
 	            type: 'text',
-	            placeholder: 'Search a name',
+	            placeholder: 'Search a name or a phone number',
 	            onChange: this.handleSearchChange.bind(this),
 	            theme: _input2.default
 	          }),
@@ -38462,9 +38462,15 @@
 	};
 
 	var contactIsMatching = function contactIsMatching(searchText) {
+	  if (!searchText) {
+	    return false;
+	  }
 	  var lowerCaseSearchText = searchText.toLowerCase();
 	  return function (contact) {
-	    return contact.name.toLowerCase().indexOf(lowerCaseSearchText) > -1;
+	    var contactNameMatches = contact.name && contact.name.toLowerCase().indexOf(lowerCaseSearchText) > -1;
+	    var contactPhoneMatches = contact.phone && contact.phone.indexOf(lowerCaseSearchText) > -1;
+	    var transformedPhoneNumberMatches = contact.phone && contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
+	    return contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches;
 	  };
 	};
 

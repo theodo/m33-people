@@ -99,7 +99,7 @@ class Layout extends Component {
         <div>
           <Input
             type="text"
-            placeholder="Search a name"
+            placeholder="Search a name or a phone number"
             onChange={this.handleSearchChange.bind(this)}
             theme={inputStyle}
           />

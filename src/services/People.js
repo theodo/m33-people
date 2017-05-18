@@ -46,9 +46,17 @@ const getCompanies = (callback) => {
 };
 
 const contactIsMatching = (searchText) => {
+  if(!searchText) {
+    return false;
+  }
   const lowerCaseSearchText = searchText.toLowerCase();
   return (contact) => {
-    return (contact.name.toLowerCase().indexOf(lowerCaseSearchText) > -1);
+    const contactNameMatches = contact.name && contact.name.toLowerCase().indexOf(lowerCaseSearchText) > -1;
+    const contactPhoneMatches = contact.phone && contact.phone.indexOf(lowerCaseSearchText) > -1;
+    const transformedPhoneNumberMatches = contact.phone && contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
+    return (
+      contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches
+    );
   };
 };
 
