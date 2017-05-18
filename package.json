@@ -1,5 +1,5 @@
 {
-  "name": "ta-dir",
+  "name": "m33-people",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/theodo/ta-dir.git"
+    "url": "git+https://github.com/theodo/m33-people.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/theodo/ta-dir/issues"
+    "url": "https://github.com/theodo/m33-people/issues"
   },
-  "homepage": "https://github.com/theodo/ta-dir#readme",
+  "homepage": "https://github.com/theodo/m33-people#readme",
   "dependencies": {
     "babel-core": "^6.21.0",
     "jquery": "3.1.0",

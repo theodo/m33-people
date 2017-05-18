@@ -72,7 +72,7 @@ class Layout extends Component {
     const tabs = this.state.companies.map(company => {
       return (
         <Tab key={company.id} label={company.name}>
-          <Link href='https://trello.com/b/JLBMh7wp/theodo-github-io-ta-dir'>Add someone</Link>
+          <Link href='https://trello.com/b/JLBMh7wp'>Add someone</Link>
           {this.renderList(company.people)}
         </Tab>
       )

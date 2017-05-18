@@ -21636,7 +21636,7 @@
 	          { key: company.id, label: company.name },
 	          _react2.default.createElement(
 	            _reactToolbox.Link,
-	            { href: 'https://trello.com/b/JLBMh7wp/theodo-github-io-ta-dir' },
+	            { href: 'https://trello.com/b/JLBMh7wp' },
 	            'Add someone'
 	          ),
 	          _this3.renderList(company.people)
