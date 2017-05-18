@@ -1,19 +1,19 @@
 
-var current_version = 'ta-dir-v8';
+var current_version = 'm33-people-v10';
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(current_version).then(cache => {
       return cache.addAll([
-        '/ta-dir/',
-        '/ta-dir/index.html',
-        '/ta-dir/dist/app.css',
-        '/ta-dir/dist/jquery.min.js',
-        '/ta-dir/dist/app.js',
-        '/ta-dir/dist/trello.js',
-        '/ta-dir/icons/favicon-16x16.png',
-        '/ta-dir/icons/favicon-32x32.png',
-        '/ta-dir/icons/favicon-96x96.png',
+        '/m33-people/',
+        '/m33-people/index.html',
+        '/m33-people/dist/app.css',
+        '/m33-people/dist/jquery.min.js',
+        '/m33-people/dist/app.js',
+        '/m33-people/dist/trello.js',
+        '/m33-people/icons/favicon-16x16.png',
+        '/m33-people/icons/favicon-32x32.png',
+        '/m33-people/icons/favicon-96x96.png',
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       ])
