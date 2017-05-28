@@ -1,5 +1,10 @@
 {
- "name": "App",
+ "name": "M33 People",
+ "short_name": "M33 People",
+ "background_color": "#FAFAFA",
+ "theme_color": "#FAFAFA",
+ "display": "standalone",
+ "start_url": "/m33-people/index.html",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
