@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Tab, Tabs, List, ListItem, ListDivider, Link, Input} from 'react-toolbox';
 import AuthorizeButton from './Authorize.jsx';
 import People from '../services/People';
+import { removeAccents, computeLegend } from '../services/Email';
 import map from 'lodash/map';
 import itemStyle from './item.scss';
 import tabStyle from './tabs.scss';
@@ -20,9 +21,11 @@ class Layout extends Component {
       const token = window.localStorage.getItem('ta_dir_trello_token');
       window.Trello.setToken(token)
       People.getCompanies((companies) => {
-        this.setState({
-          companies: companies,
+        const companyEmails = {}
+        this.state.companies.map(company => {
+          companyEmails[company.id] = company.name.split('|')[1];
         });
+        this.setState({companies, companyEmails});
       });
     }
   }
@@ -45,13 +48,13 @@ class Layout extends Component {
   renderList(people) {
     const items = people.map(someone => {
       const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
-
+      const legend = computeLegend(someone, this.state.companyEmails);
       return (
         <ListItem
           key={someone.name}
           avatar={someone.avatar}
           caption={someone.name}
-          legend={someone.phone}
+          legend={legend}
           rightIcon={phoneCallToAction}
         />
       )
@@ -71,7 +74,7 @@ class Layout extends Component {
 
     const tabs = this.state.companies.map(company => {
       return (
-        <Tab key={company.id} label={company.name}>
+        <Tab key={company.id} label={company.name.split('|')[0]}>
           <Link href='https://trello.com/b/JLBMh7wp'>Add someone</Link>
           {this.renderList(company.people)}
         </Tab>

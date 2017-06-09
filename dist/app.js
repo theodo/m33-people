@@ -58,7 +58,7 @@
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	__webpack_require__(587);
+	__webpack_require__(588);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21524,6 +21524,8 @@
 
 	var _People2 = _interopRequireDefault(_People);
 
+	var _Email = __webpack_require__(585);
+
 	var _map = __webpack_require__(442);
 
 	var _map2 = _interopRequireDefault(_map);
@@ -21532,11 +21534,11 @@
 
 	var _item2 = _interopRequireDefault(_item);
 
-	var _tabs = __webpack_require__(585);
+	var _tabs = __webpack_require__(586);
 
 	var _tabs2 = _interopRequireDefault(_tabs);
 
-	var _input = __webpack_require__(586);
+	var _input = __webpack_require__(587);
 
 	var _input2 = _interopRequireDefault(_input);
 
@@ -21582,9 +21584,11 @@
 	        var token = window.localStorage.getItem('ta_dir_trello_token');
 	        window.Trello.setToken(token);
 	        _People2.default.getCompanies(function (companies) {
-	          _this2.setState({
-	            companies: companies
+	          var companyEmails = {};
+	          _this2.state.companies.map(function (company) {
+	            companyEmails[company.id] = company.name.split('|')[1];
 	          });
+	          _this2.setState({ companies: companies, companyEmails: companyEmails });
 	        });
 	      }
 	    }
@@ -21599,14 +21603,16 @@
 	  }, {
 	    key: 'renderList',
 	    value: function renderList(people) {
+	      var _this3 = this;
+
 	      var items = people.map(function (someone) {
 	        var phoneCallToAction = _react2.default.createElement(_reactToolbox.Link, { href: 'tel:' + someone.phone, icon: 'phone', theme: _item2.default });
-
+	        var legend = (0, _Email.computeLegend)(someone, _this3.state.companyEmails);
 	        return _react2.default.createElement(_reactToolbox.ListItem, {
 	          key: someone.name,
 	          avatar: someone.avatar,
 	          caption: someone.name,
-	          legend: someone.phone,
+	          legend: legend,
 	          rightIcon: phoneCallToAction
 	        });
 	      });
@@ -21620,7 +21626,7 @@
 	  }, {
 	    key: 'renderTabs',
 	    value: function renderTabs() {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      if (this.state.companies.length === 0) {
 	        return _react2.default.createElement(
@@ -21633,13 +21639,13 @@
 	      var tabs = this.state.companies.map(function (company) {
 	        return _react2.default.createElement(
 	          _reactToolbox.Tab,
-	          { key: company.id, label: company.name },
+	          { key: company.id, label: company.name.split('|')[0] },
 	          _react2.default.createElement(
 	            _reactToolbox.Link,
 	            { href: 'https://trello.com/b/JLBMh7wp' },
 	            'Add someone'
 	          ),
-	          _this3.renderList(company.people)
+	          _this4.renderList(company.people)
 	        );
 	      });
 
@@ -38426,17 +38432,24 @@
 	    avatar = someoneCard.attachments[0].url;
 	  }
 	  var phoneRegex = /\[PHONE=(.+)\]/g;
+	  var emailRegex = /\[EMAIL=(.+)\]/g;
 	  var phoneMatch = phoneRegex.exec(someoneCard.desc);
+	  var emailMatch = emailRegex.exec(someoneCard.desc);
 	  var phone = null;
+	  var email = null;
 	  if (phoneMatch) {
 	    phone = phoneMatch[1];
+	  }
+	  if (emailMatch) {
+	    email = emailMatch[1];
 	  }
 
 	  return {
 	    name: someoneCard.name,
 	    avatar: avatar,
 	    companyId: someoneCard.idList,
-	    phone: phone
+	    phone: phone,
+	    email: email
 	  };
 	};
 
@@ -43139,18 +43152,54 @@
 /* 585 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
-	module.exports = {"navigation":"tabs__navigation___uyRn2","pointer":"tabs__pointer___19J85","tab":"tabs__tab___2O4sC"};
+	'use strict';
+
+	var removeAccents = function removeAccents(string) {
+	  return string.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+	};
+
+	var computeLegend = function computeLegend(someone, companyEmails) {
+	  var splitedName = someone.name.split(' ');
+	  var legend = '';
+	  if (splitedName) {
+	    var firstName = removeAccents(splitedName[0].replace("-", "").toLowerCase());
+	    var lastName = splitedName[2] ? '' + splitedName[1].toLowerCase()[0] + splitedName[2].toLowerCase()[0] : splitedName[1].toLowerCase()[0];
+	    if (companyEmails) {
+	      var email = '';
+	      if (someone.email) {
+	        email = someone.email;
+	      } else {
+	        email = '' + firstName + lastName + companyEmails[someone.companyId];
+	      }
+	      legend = someone.phone + ' ; ' + email;
+	    } else {
+	      legend = '' + someone.phone + someone.email;
+	    }
+	  }
+	  return legend;
+	};
+
+	module.exports = {
+	  removeAccents: removeAccents,
+	  computeLegend: computeLegend
+	};
 
 /***/ },
 /* 586 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"input":"input__input___3U49E","noResults":"input__noResults___1M2MU"};
+	module.exports = {"navigation":"tabs__navigation___uyRn2","pointer":"tabs__pointer___19J85","tab":"tabs__tab___2O4sC"};
 
 /***/ },
 /* 587 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"input":"input__input___3U49E","noResults":"input__noResults___1M2MU"};
+
+/***/ },
+/* 588 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
