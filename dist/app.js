@@ -43161,10 +43161,10 @@
 	var computeLegend = function computeLegend(someone, companyEmails) {
 	  var splitedName = someone.name.split(' ');
 	  var legend = '';
-	  if (splitedName) {
+	  if (splitedName && splitedName[0] && splitedName[1]) {
 	    var firstName = removeAccents(splitedName[0].replace("-", "").toLowerCase());
 	    var lastName = splitedName[2] ? '' + splitedName[1].toLowerCase()[0] + splitedName[2].toLowerCase()[0] : splitedName[1].toLowerCase()[0];
-	    if (companyEmails) {
+	    if (companyEmails && someone.companyId) {
 	      var email = '';
 	      if (someone.email) {
 	        email = someone.email;
