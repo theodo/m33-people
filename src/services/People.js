@@ -10,10 +10,16 @@ const parsePeople = (someoneCard) => {
     avatar = someoneCard.attachments[0].url
   }
   const phoneRegex = /\[PHONE=(.+)\]/g;
+  const emailRegex = /\[EMAIL=(.+)\]/g;
   const phoneMatch = phoneRegex.exec(someoneCard.desc);
+  const emailMatch = emailRegex.exec(someoneCard.desc);
   var phone = null;
+  var email = null;
   if (phoneMatch) {
     phone = phoneMatch[1];
+  }
+  if (emailMatch) {
+    email = emailMatch[1];
   }
 
   return {
@@ -21,6 +27,7 @@ const parsePeople = (someoneCard) => {
     avatar: avatar,
     companyId: someoneCard.idList,
     phone: phone,
+    email: email,
   }
 };
 
