@@ -5,10 +5,10 @@ const removeAccents = (string) => {
 const computeLegend = (someone, companyEmails) => {
   const splitedName = someone.name.split(' ');
   let legend = '';
-  if(splitedName) {
+  if(splitedName && splitedName[0] && splitedName[1]) {
     const firstName = removeAccents(splitedName[0].replace("-","").toLowerCase());
     const lastName = splitedName[2] ? `${splitedName[1].toLowerCase()[0]}${splitedName[2].toLowerCase()[0]}` : splitedName[1].toLowerCase()[0];
-    if(companyEmails) {
+    if(companyEmails && someone.companyId) {
       let email = '';
       if(someone.email) {
         email = someone.email;
