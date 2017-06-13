@@ -43159,24 +43159,38 @@
 	};
 
 	var computeLegend = function computeLegend(someone, companyEmails) {
-	  var splitedName = someone.name.split(' ');
-	  var legend = '';
-	  if (splitedName && splitedName[0] && splitedName[1]) {
-	    var firstName = removeAccents(splitedName[0].replace("-", "").toLowerCase());
-	    var lastName = splitedName[2] ? '' + splitedName[1].toLowerCase()[0] + splitedName[2].toLowerCase()[0] : splitedName[1].toLowerCase()[0];
-	    if (companyEmails && someone.companyId) {
-	      var email = '';
-	      if (someone.email) {
-	        email = someone.email;
-	      } else {
-	        email = '' + firstName + lastName + companyEmails[someone.companyId];
+	  var phone = someone.phone;
+	  var email = computeEmail(someone, companyEmails);
+
+	  if (phone && !email) {
+	    return phone;
+	  }
+	  if (!phone && email) {
+	    return email;
+	  }
+	  if (phone && email) {
+	    return phone + ' - ' + email;
+	  }
+	  return '';
+	};
+
+	var computeEmail = function computeEmail(someone, companyEmails) {
+	  if (someone.email) {
+	    return someone.email;
+	  }
+
+	  if (someone.name) {
+	    var splitedName = removeAccents(someone.name).split(' ');
+	    if (splitedName && splitedName[0] && splitedName[1]) {
+	      var firstName = splitedName[0].replace('-', '').toLowerCase();
+	      var lastName = splitedName[2] ? '' + splitedName[1].toLowerCase()[0] + splitedName[2].toLowerCase()[0] : splitedName[1].toLowerCase()[0];
+	      if (companyEmails && someone.companyId) {
+	        return '' + firstName + lastName + companyEmails[someone.companyId];
 	      }
-	      legend = someone.phone + ' ; ' + email;
-	    } else {
-	      legend = '' + someone.phone + someone.email;
 	    }
 	  }
-	  return legend;
+
+	  return null;
 	};
 
 	module.exports = {
