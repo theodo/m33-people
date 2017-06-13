@@ -21660,7 +21660,7 @@
 	    value: function render() {
 	      if (!this.state.isAuthenticated) {
 	        return _react2.default.createElement(_Authorize2.default, {
-	          onSignInSuccess: this.onSignInSuccess.bind(this)
+	          onSignInSuccess: onSignInSuccess.bind(this)
 	        });
 	      } else {
 	        var tabs = this.renderTabs();

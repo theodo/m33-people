@@ -92,7 +92,7 @@ class Layout extends Component {
     if (!this.state.isAuthenticated) {
       return (
         <AuthorizeButton
-          onSignInSuccess={this.onSignInSuccess.bind(this)}
+          onSignInSuccess={onSignInSuccess.bind(this)}
         />
       )
     }
