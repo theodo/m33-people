@@ -38,7 +38,7 @@ class Layout extends Component {
     this.setState({companies: People.searchPeople(value)});
   }
 
-  onSignInSuccess() {
+  onSignInSuccess = () => {
     this.setState({
       isAuthenticated: true,
     });
@@ -92,7 +92,7 @@ class Layout extends Component {
     if (!this.state.isAuthenticated) {
       return (
         <AuthorizeButton
-          onSignInSuccess={onSignInSuccess.bind(this)}
+          onSignInSuccess={this.onSignInSuccess}
         />
       )
     }
