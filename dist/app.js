@@ -21572,6 +21572,11 @@
 	      _this.setState({ index: index });
 	    }, _this.handleSearchChange = function (value) {
 	      _this.setState({ companies: _People2.default.searchPeople(value) });
+	    }, _this.onSignInSuccess = function () {
+	      _this.setState({
+	        isAuthenticated: true
+	      });
+	      _this.getTabs();
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
@@ -21591,14 +21596,6 @@
 	          _this2.setState({ companies: companies, companyEmails: companyEmails });
 	        });
 	      }
-	    }
-	  }, {
-	    key: 'onSignInSuccess',
-	    value: function onSignInSuccess() {
-	      this.setState({
-	        isAuthenticated: true
-	      });
-	      this.getTabs();
 	    }
 	  }, {
 	    key: 'renderList',
@@ -21660,7 +21657,7 @@
 	    value: function render() {
 	      if (!this.state.isAuthenticated) {
 	        return _react2.default.createElement(_Authorize2.default, {
-	          onSignInSuccess: onSignInSuccess.bind(this)
+	          onSignInSuccess: this.onSignInSuccess
 	        });
 	      } else {
 	        var tabs = this.renderTabs();
