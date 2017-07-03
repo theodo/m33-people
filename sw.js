@@ -1,5 +1,5 @@
 
-var current_version = 'm33-people-v14';
+var current_version = 'm33-people-v15';
 
 self.addEventListener('install', e => {
   e.waitUntil(
