@@ -21553,26 +21553,34 @@
 	var Layout = function (_Component) {
 	  _inherits(Layout, _Component);
 
-	  function Layout() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
+	  function Layout(props) {
 	    _classCallCheck(this, Layout);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Layout.__proto__ || Object.getPrototypeOf(Layout)).call.apply(_ref, [this].concat(args))), _this), _this.searchText = '', _this.state = {
-	      index: 0,
-	      isAuthenticated: window.localStorage.getItem('ta_dir_trello_token') !== null,
-	      companies: JSON.parse(window.localStorage.getItem('ta_dir_companies')) || []
-	    }, _this.handleTabChange = function (index) {
-	      _this.setState({ index: index });
-	    }, _this.handleSearchChange = function (value) {
-	      _this.setState({ companies: _People2.default.searchPeople(value) });
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    _this.searchText = '';
+
+	    _this.handleTabChange = function (index) {
+	      _this.setState({
+	        companyId: _this.state.companies[index].id
+	      });
+	    };
+
+	    _this.handleSearchChange = function (value) {
+	      _this.setState({
+	        companies: _People2.default.searchPeople(value)
+	      });
+	    };
+
+	    var companies = JSON.parse(window.localStorage.getItem('ta_dir_companies')) || [];
+	    var isAuthenticated = window.localStorage.getItem('ta_dir_trello_token') !== null;
+
+	    _this.state = {
+	      companyId: companies[0].id,
+	      isAuthenticated: isAuthenticated,
+	      companies: companies
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Layout, [{
@@ -21649,9 +21657,13 @@
 	        );
 	      });
 
+	      var selectedCompanyIndex = this.state.companies.map(function (company) {
+	        return company.id;
+	      }).indexOf(this.state.companyId);
+
 	      return _react2.default.createElement(
 	        _reactToolbox.Tabs,
-	        { index: this.state.index, onChange: this.handleTabChange, inverse: true, theme: _tabs2.default },
+	        { index: selectedCompanyIndex, onChange: this.handleTabChange, inverse: true, theme: _tabs2.default },
 	        tabs
 	      );
 	    }

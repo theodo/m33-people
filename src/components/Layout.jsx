@@ -10,11 +10,19 @@ import inputStyle from './input.scss';
 
 class Layout extends Component {
   searchText = '';
-  state = {
-    index: 0,
-    isAuthenticated: window.localStorage.getItem('ta_dir_trello_token') !== null,
-    companies: JSON.parse(window.localStorage.getItem('ta_dir_companies')) || [],
-  };
+
+  constructor(props) {
+    super(props);
+
+    const companies = JSON.parse(window.localStorage.getItem('ta_dir_companies')) || [];
+    const isAuthenticated = window.localStorage.getItem('ta_dir_trello_token') !== null;
+
+    this.state = {
+      companyId: companies[0].id,
+      isAuthenticated,
+      companies,
+    };
+  }
 
   componentDidMount() {
     if (this.state.isAuthenticated) {
@@ -31,11 +39,15 @@ class Layout extends Component {
   }
 
   handleTabChange = (index) => {
-    this.setState({index});
+    this.setState({
+      companyId: this.state.companies[index].id,
+    });
   };
 
   handleSearchChange = (value) => {
-    this.setState({companies: People.searchPeople(value)});
+    this.setState({
+      companies: People.searchPeople(value)
+    });
   }
 
   onSignInSuccess() {
@@ -79,10 +91,14 @@ class Layout extends Component {
           {this.renderList(company.people)}
         </Tab>
       )
-    })
+    });
+
+    const selectedCompanyIndex = this.state.companies
+      .map(company => company.id)
+      .indexOf(this.state.companyId);
 
     return (
-      <Tabs index={this.state.index} onChange={this.handleTabChange} inverse theme={tabStyle}>
+      <Tabs index={selectedCompanyIndex} onChange={this.handleTabChange} inverse theme={tabStyle}>
         {tabs}
       </Tabs>
     );
