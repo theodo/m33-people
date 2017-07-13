@@ -18,7 +18,7 @@ class Layout extends Component {
     const isAuthenticated = window.localStorage.getItem('ta_dir_trello_token') !== null;
 
     this.state = {
-      companyId: companies[0].id,
+      companyId: companies[0] ? companies[0].id : 0,
       isAuthenticated,
       companies,
     };

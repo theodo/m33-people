@@ -21561,15 +21561,11 @@
 	    _this.searchText = '';
 
 	    _this.handleTabChange = function (index) {
-	      _this.setState({
-	        companyId: _this.state.companies[index].id
-	      });
+	      _this.setState({ companyId: _this.state.companies[index].id });
 	    };
 
 	    _this.handleSearchChange = function (value) {
-	      _this.setState({
-	        companies: _People2.default.searchPeople(value)
-	      });
+	      _this.setState({ companies: _People2.default.searchPeople(value) });
 	    };
 
 	    _this.onSignInSuccess = function () {
@@ -21583,7 +21579,7 @@
 	    var isAuthenticated = window.localStorage.getItem('ta_dir_trello_token') !== null;
 
 	    _this.state = {
-	      companyId: companies[0].id,
+	      companyId: companies[0] ? companies[0].id : 0,
 	      isAuthenticated: isAuthenticated,
 	      companies: companies
 	    };
