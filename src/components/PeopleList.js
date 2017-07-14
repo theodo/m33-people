@@ -7,6 +7,7 @@ import map from 'lodash/map';
 import itemStyle from './item.scss';
 import tabStyle from './tabs.scss';
 import inputStyle from './input.scss';
+import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 
 class PeopleList extends Component {
   constructor(props) {
@@ -15,6 +16,38 @@ class PeopleList extends Component {
       people: props.people,
     };
   }
+
+  itemRenderer = (someone) => {
+    const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
+    const legend = '';
+    return (
+      <ListItem
+        key={someone.name}
+        avatar={someone.avatar}
+        caption={someone.name}
+        legend={legend}
+        rightIcon={phoneCallToAction}
+      />
+    );
+  }
+
+  rowRenderer = ({
+    key,
+    index,
+    isScrolling,
+    isVisible,
+    style 
+  }) => {
+    return (
+      <div
+        key={index}
+        style={style}
+      >
+        {this.itemRenderer(this.state.people[index])}
+      </div>
+    )
+  }
+
 
   renderList(people) {
     const items = people.map(someone => {
@@ -40,7 +73,19 @@ class PeopleList extends Component {
 
   render () {
     return(
-      this.renderList(this.state.people)
+      <div style={{flex: '1 1 auto'}}>
+        <AutoSizer>
+          {({ width, height }) => (
+            <InfiniteList
+              width={width}
+              height={height}
+              rowCount={this.state.people.length}
+              rowHeight={50}
+              rowRenderer={this.rowRenderer}
+            />
+          )}
+        </AutoSizer>
+      </div>
     );
   }
 }

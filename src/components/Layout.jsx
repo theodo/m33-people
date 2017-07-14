@@ -54,28 +54,6 @@ class Layout extends Component {
     this.getTabs()
   }
 
-  renderList(people) {
-    const items = people.map(someone => {
-      const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
-      const legend = computeLegend(someone, this.state.companyEmails);
-      return (
-        <ListItem
-          key={someone.name}
-          avatar={someone.avatar}
-          caption={someone.name}
-          legend={legend}
-          rightIcon={phoneCallToAction}
-        />
-      )
-    })
-
-    return (
-      <List ripple>
-        {items}
-      </List>
-    )
-  }
-
   renderTabs() {
     if (this.state.companies.length === 0) {
       return (<div className={inputStyle.noResults}>No results</div>);
@@ -83,7 +61,11 @@ class Layout extends Component {
 
     const tabs = this.state.companies.map(company => {
       return (
-        <Tab key={company.id} label={company.name.split('|')[0]}>
+        <Tab
+          key={company.id}
+          label={company.name.split('|')[0]}
+          style={{height: '100%', display: 'flex'}}
+        >
           <Link href='https://trello.com/b/JLBMh7wp'>Add someone</Link>
           <PeopleList people={company.people} />
         </Tab>
