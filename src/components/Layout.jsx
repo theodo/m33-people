@@ -7,6 +7,7 @@ import map from 'lodash/map';
 import itemStyle from './item.scss';
 import tabStyle from './tabs.scss';
 import inputStyle from './input.scss';
+import PeopleList from './PeopleList';
 
 class Layout extends Component {
   searchText = '';
@@ -84,7 +85,7 @@ class Layout extends Component {
       return (
         <Tab key={company.id} label={company.name.split('|')[0]}>
           <Link href='https://trello.com/b/JLBMh7wp'>Add someone</Link>
-          {this.renderList(company.people)}
+          <PeopleList people={company.people} />
         </Tab>
       )
     });
