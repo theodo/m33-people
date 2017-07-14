@@ -67,7 +67,7 @@ class Layout extends Component {
           style={{height: '100%', display: 'flex'}}
         >
           <Link href='https://trello.com/b/JLBMh7wp'>Add someone</Link>
-          <PeopleList people={company.people} />
+          <PeopleList people={company.people} companyEmails={this.state.companyEmails} companies={this.state.companies} />
         </Tab>
       )
     });

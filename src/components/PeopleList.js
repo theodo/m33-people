@@ -14,12 +14,21 @@ class PeopleList extends Component {
     super(props);
     this.state = {
       people: props.people,
+      companyEmails: props.companyEmails
+    };
+  }
+
+  componentWillRecieveProps(newProps) {
+    console.log('newprops');
+    this.setState = {
+      people: newProps.people,
+      companyEmails: newProps.companyEmails
     };
   }
 
   itemRenderer = (someone) => {
     const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
-    const legend = '';
+    const legend = computeLegend(someone, this.state.companyEmails);
     return (
       <ListItem
         key={someone.name}
@@ -31,13 +40,7 @@ class PeopleList extends Component {
     );
   }
 
-  rowRenderer = ({
-    key,
-    index,
-    isScrolling,
-    isVisible,
-    style 
-  }) => {
+  rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
     return (
       <div
         key={index}
@@ -45,29 +48,6 @@ class PeopleList extends Component {
       >
         {this.itemRenderer(this.state.people[index])}
       </div>
-    )
-  }
-
-
-  renderList(people) {
-    const items = people.map(someone => {
-      const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
-      const legend = computeLegend(someone, this.state.companyEmails);
-      return (
-        <ListItem
-          key={someone.name}
-          avatar={someone.avatar}
-          caption={someone.name}
-          legend={legend}
-          rightIcon={phoneCallToAction}
-        />
-      )
-    })
-
-    return (
-      <List ripple>
-        {items}
-      </List>
     )
   }
 
@@ -80,7 +60,7 @@ class PeopleList extends Component {
               width={width}
               height={height}
               rowCount={this.state.people.length}
-              rowHeight={50}
+              rowHeight={72}
               rowRenderer={this.rowRenderer}
             />
           )}
