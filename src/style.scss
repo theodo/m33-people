@@ -6,3 +6,11 @@
 @import "./config";
 @import "~react-toolbox/components/list/config";
 @import "~react-toolbox/components/tabs/config";
+
+li {
+  list-style-type: none;
+}
+
+.app, #app > div {
+  height: 100%;
+}

@@ -54099,6 +54099,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+	module.exports = {"app":"style__app___lOUp6"};
 
 /***/ }
 /******/ ]);

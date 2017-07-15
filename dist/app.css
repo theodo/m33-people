@@ -3654,3 +3654,9 @@ p {
   font-weight: 400;
   line-height: 2.4rem;
   letter-spacing: 0; }
+
+li {
+  list-style-type: none; }
+
+.style__app___lOUp6, #style__app___lOUp6 > div {
+  height: 100%; }
