@@ -12,23 +12,11 @@ import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 class PeopleList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      people: props.people,
-      companyEmails: props.companyEmails
-    };
-  }
-
-  componentWillRecieveProps(newProps) {
-    console.log('newprops');
-    this.setState = {
-      people: newProps.people,
-      companyEmails: newProps.companyEmails
-    };
   }
 
   itemRenderer = (someone) => {
     const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
-    const legend = computeLegend(someone, this.state.companyEmails);
+    const legend = computeLegend(someone, this.props.companyEmails);
     return (
       <ListItem
         key={someone.name}
@@ -46,7 +34,7 @@ class PeopleList extends Component {
         key={index}
         style={style}
       >
-        {this.itemRenderer(this.state.people[index])}
+        {this.itemRenderer(this.props.people[index])}
       </div>
     )
   }
@@ -59,7 +47,7 @@ class PeopleList extends Component {
             <InfiniteList
               width={width}
               height={height}
-              rowCount={this.state.people.length}
+              rowCount={this.props.people.length}
               rowHeight={72}
               rowRenderer={this.rowRenderer}
             />

@@ -3165,6 +3165,10 @@
   z-index: 100001; }
 
 .tabs__tab___2O4sC {
+  height: 100%;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
   margin-top: 80px; }
 .input__input___3U49E {
   position: fixed;
