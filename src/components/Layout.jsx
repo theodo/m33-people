@@ -8,6 +8,7 @@ import itemStyle from './item.scss';
 import tabStyle from './tabs.scss';
 import inputStyle from './input.scss';
 import PeopleList from './PeopleList';
+import PeopleTabs from './Tabs.js';
 
 class Layout extends Component {
   searchText = '';
@@ -101,7 +102,7 @@ class Layout extends Component {
             onChange={this.handleSearchChange.bind(this)}
             theme={inputStyle}
           />
-          {tabs}
+          <PeopleTabs companies={this.state.companies} companyId={this.state.companyId} />
         </div>
       )
     }
