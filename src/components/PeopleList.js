@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import {Tab, Tabs, List, ListItem, ListDivider, Link, Input} from 'react-toolbox';
-import AuthorizeButton from './Authorize.jsx';
-import People from '../services/People';
-import { removeAccents, computeLegend } from '../services/Email';
-import map from 'lodash/map';
-import itemStyle from './item.scss';
-import tabStyle from './tabs.scss';
-import inputStyle from './input.scss';
+import { ListItem, Link } from 'react-toolbox';
 import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 
-class PeopleList extends Component {
-  constructor(props) {
-    super(props);
-  }
+import { computeLegend } from '../services/Email';
+import itemStyle from './item.scss';
 
+class PeopleList extends Component {
   itemRenderer = (someone) => {
     const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
     const legend = computeLegend(someone, this.props.companyEmails);

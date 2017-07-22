@@ -12,7 +12,6 @@ import tabStyle from './tabs.scss';
 class PeopleTabs extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.state = {
       companyId: props.companyId,

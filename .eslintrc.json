@@ -5,6 +5,9 @@
     "jsx-a11y",
     "import"
   ],
+  "globals": {
+    "window": true
+  },
   "parser": "babel-eslint",
   "rules": {
     "func-names": ["error", "never"],
