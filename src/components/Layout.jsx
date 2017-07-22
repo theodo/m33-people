@@ -11,8 +11,6 @@ import PeopleList from './PeopleList';
 import PeopleTabs from './Tabs.js';
 
 class Layout extends Component {
-  searchText = '';
-
   constructor(props) {
     super(props);
 

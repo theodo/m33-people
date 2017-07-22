@@ -5,6 +5,7 @@
     "jsx-a11y",
     "import"
   ],
+  "parser": "babel-eslint",
   "rules": {
     "func-names": ["error", "never"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
