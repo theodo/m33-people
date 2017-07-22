@@ -50,36 +50,7 @@ class Layout extends Component {
     this.setState({
       isAuthenticated: true,
     });
-    this.getTabs()
-  }
-
-  renderTabs() {
-    if (this.state.companies.length === 0) {
-      return (<div className={inputStyle.noResults}>No results</div>);
-    }
-
-    const tabs = this.state.companies.map(company => {
-      return (
-        <Tab
-          key={company.id}
-          label={company.name.split('|')[0]}
-          style={{height: '100%', display: 'flex'}}
-        >
-          <Link href='https://trello.com/b/JLBMh7wp'>Add someone</Link>
-          <PeopleList people={company.people} companyEmails={this.state.companyEmails} companies={this.state.companies} />
-        </Tab>
-      )
-    });
-
-    const selectedCompanyIndex = this.state.companies
-      .map(company => company.id)
-      .indexOf(this.state.companyId);
-
-    return (
-      <Tabs index={selectedCompanyIndex} onChange={this.handleTabChange} inverse theme={tabStyle}>
-        {tabs}
-      </Tabs>
-    );
+    this.getTabs();
   }
 
   render () {
@@ -91,7 +62,6 @@ class Layout extends Component {
       )
     }
     else {
-      const tabs = this.renderTabs()
       return (
         <div>
           <Input
