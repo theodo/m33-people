@@ -38,10 +38,6 @@ class Layout extends Component {
     }
   }
 
-  handleTabChange = (index) => {
-    this.setState({companyId: this.state.companies[index].id});
-  };
-
   handleSearchChange = (value) => {
     this.setState({companies: People.searchPeople(value)});
   }

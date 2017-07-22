@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Tab,
   Tabs,
@@ -9,6 +10,20 @@ import List from './PeopleList';
 import tabStyle from './tabs.scss';
 
 class PeopleTabs extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+
+    this.state = {
+      companyId: props.companyId,
+    };
+  }
+
+
+  handleTabChange = (index) => {
+    this.setState({ companyId: this.props.companies[index].id });
+  };
+
   renderTabs = () => {
     if (this.props.companies.length === 0) {
       return (<div className={inputStyle.noResults}>No results</div>);
@@ -33,7 +48,7 @@ class PeopleTabs extends Component {
 
     const selectedCompanyIndex = this.props.companies
       .map(company => company.id)
-      .indexOf(this.props.companyId);
+      .indexOf(this.state.companyId);
 
     return (
       <Tabs index={selectedCompanyIndex} onChange={this.handleTabChange} inverse theme={tabStyle}>
@@ -48,5 +63,10 @@ class PeopleTabs extends Component {
     );
   }
 }
+
+PeopleTabs.propTypes = {
+  companies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  companyId: PropTypes.string.isRequired,
+};
 
 export default PeopleTabs;
