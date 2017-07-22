@@ -13,7 +13,7 @@ class Layout extends Component {
     const isAuthenticated = window.localStorage.getItem('ta_dir_trello_token') !== null;
 
     this.state = {
-      companyId: companies[0] ? companies[0].id : 0,
+      companyId: companies[0] ? companies[0].id : '',
       isAuthenticated,
       companies,
     };
@@ -23,21 +23,30 @@ class Layout extends Component {
     if (this.state.isAuthenticated) {
       const token = window.localStorage.getItem('ta_dir_trello_token');
       window.Trello.setToken(token);
-      People.getCompanies((companies) => {
-        const companyEmails = {};
-        this.state.companies.map((company) => {
-          companyEmails[company.id] = company.name.split('|')[1];
-        });
-        this.setState({ companies, companyEmails });
-      });
+      this.getCompanies();
     }
   }
 
   onSignInSuccess = () => {
     this.setState({
       isAuthenticated: true,
+      companyId: 'sddsadsa',
     });
-    this.getTabs();
+    this.getCompanies();
+  }
+
+  getCompanies = () => {
+    People.getCompanies((companies) => {
+      const companyEmails = {};
+      this.state.companies.map((company) => {
+        companyEmails[company.id] = company.name.split('|')[1];
+      });
+      this.setState({
+        companies,
+        companyEmails,
+        companyId: companies[0] ? companies[0].id : '',
+      });
+    });
   }
 
   handleSearchChange = (value) => {
