@@ -9,7 +9,7 @@ const computeEmail = (someone, companyEmails) => {
 
   if (someone.name) {
     const splitedName = removeAccents(someone.name).split(' ');
-n    if (splitedName && splitedName[0] && splitedName[1]) {
+    if (splitedName && splitedName[0] && splitedName[1]) {
       const firstName = splitedName[0].replace('-', '').toLowerCase();
       const lastName = splitedName[2] ? `${splitedName[1].toLowerCase()[0]}${splitedName[2].toLowerCase()[0]}` : splitedName[1].toLowerCase()[0];
       if (companyEmails.length > 0 && someone.companyId) {
