@@ -15,6 +15,7 @@ class Layout extends Component {
     this.state = {
       companyId: companies[0] ? companies[0].id : '',
       isAuthenticated,
+      companyEmails: {},
       companies,
     };
   }
