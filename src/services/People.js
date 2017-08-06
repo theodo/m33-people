@@ -24,11 +24,11 @@ const parsePeople = (someoneCard) => {
 
   return {
     name: someoneCard.name,
-    avatar: avatar,
+    avatar,
     companyId: someoneCard.idList,
-    phone: phone,
-    email: email,
-  }
+    phone,
+    email,
+  };
 };
 
 const getCompanies = (callback) => {
@@ -37,23 +37,27 @@ const getCompanies = (callback) => {
   }
   window.Trello.get('/boards/JLBMh7wp/lists?fields=name', (lists) => {
     window.Trello.get('/boards/JLBMh7wp/cards?attachments=true', (cards) => {
-      const people = sortBy(cards.map(parsePeople), 'name')
-      const peopleByCompanyId = groupBy(people, 'companyId')
-      companies = lists.map(list => {
-        return {
-          id: list.id,
-          name: list.name,
-          people: peopleByCompanyId[list.id] || []
-        }
-      })
-      window.localStorage.setItem('ta_dir_companies', JSON.stringify(companies))
-      callback(companies)
-    })
+      const people = sortBy(cards.map(parsePeople), 'name');
+      const peopleByCompanyId = groupBy(people, 'companyId');
+      companies = lists.map(list => ({
+        id: list.id,
+        name: list.name,
+        people: peopleByCompanyId[list.id] || [],
+      }));
+      window.localStorage.setItem('ta_dir_companies', JSON.stringify(companies));
+      callback(companies);
+    });
   })
+  .catch(() => {
+    window.localStorage.removeItem('ta_dir_trello_token');
+    if (window.confirm('You are not allow to use this application, maybee, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?')) {
+      window.open('https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture');
+    }
+  });
 };
 
 const contactIsMatching = (searchText) => {
-  if(!searchText) {
+  if (!searchText) {
     return false;
   }
   const lowerCaseSearchText = searchText.toLowerCase();

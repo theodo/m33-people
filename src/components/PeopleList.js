@@ -50,11 +50,9 @@ class PeopleList extends Component {
   }
 }
 
-
 PeopleList.propTypes = {
   people: PropTypes.arrayOf(PropTypes.object).isRequired,
   companyEmails: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-
 
 export default PeopleList;
