@@ -70,7 +70,15 @@ class Layout extends Component {
           onChange={this.handleSearchChange}
           theme={inputStyle}
         />
-        <PeopleTabs companies={this.state.companies} companyId={this.state.companyId} />
+        {
+          Object.keys(this.state.companyEmails).length === 0
+          ? null
+          : <PeopleTabs
+            companies={this.state.companies}
+            companyId={this.state.companyId}
+            companyEmails={this.state.companyEmails}
+          />
+        }
       </div>
     );
   }

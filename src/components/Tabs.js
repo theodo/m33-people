@@ -38,7 +38,7 @@ class PeopleTabs extends Component {
           <Link href="https://trello.com/b/JLBMh7wp">Add someone</Link>
           <List
             people={company.people}
-            companyEmails={[]}
+            companyEmails={this.props.companyEmails}
             companies={this.props.companies}
           />
         </Tab>
@@ -66,6 +66,7 @@ class PeopleTabs extends Component {
 PeopleTabs.propTypes = {
   companies: PropTypes.arrayOf(PropTypes.object).isRequired,
   companyId: PropTypes.string.isRequired,
+  companyEmails: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default PeopleTabs;

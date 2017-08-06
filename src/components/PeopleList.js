@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ListItem, Link } from 'react-toolbox';
 import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 
@@ -7,7 +8,7 @@ import itemStyle from './item.scss';
 
 class PeopleList extends Component {
   itemRenderer = (someone) => {
-    const phoneCallToAction = <Link href={'tel:' + someone.phone} icon='phone' theme={itemStyle} />
+    const phoneCallToAction = <Link href={`tel:${someone.phone}`} icon="phone" theme={itemStyle} />;
     const legend = computeLegend(someone, this.props.companyEmails);
     return (
       <ListItem
@@ -20,20 +21,19 @@ class PeopleList extends Component {
     );
   }
 
-  rowRenderer = ({ key, index, isScrolling, isVisible, style }) => {
-    return (
-      <div
-        key={index}
-        style={style}
-      >
-        {this.itemRenderer(this.props.people[index])}
-      </div>
-    )
-  }
+  rowRenderer = ({ index, style }) => (
+    <div
+      key={index}
+      style={style}
+    >
+      {this.itemRenderer(this.props.people[index])}
+    </div>
+  );
 
-  render () {
-    return(
-      <div style={{flex: '1 1 auto'}}>
+
+  render() {
+    return (
+      <div style={{ flex: '1 1 auto' }}>
         <AutoSizer>
           {({ width, height }) => (
             <InfiniteList
@@ -49,5 +49,12 @@ class PeopleList extends Component {
     );
   }
 }
+
+
+PeopleList.propTypes = {
+  people: PropTypes.arrayOf(PropTypes.object).isRequired,
+  companyEmails: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
 
 export default PeopleList;
