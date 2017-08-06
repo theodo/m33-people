@@ -21556,6 +21556,7 @@
 	    _this.state = {
 	      companyId: companies[0] ? companies[0].id : '',
 	      isAuthenticated: isAuthenticated,
+	      companyEmails: {},
 	      companies: companies
 	    };
 	    return _this;
@@ -21587,7 +21588,11 @@
 	          onChange: this.handleSearchChange,
 	          theme: _input2.default
 	        }),
-	        _react2.default.createElement(_Tabs2.default, { companies: this.state.companies, companyId: this.state.companyId })
+	        Object.keys(this.state.companyEmails).length === 0 ? null : _react2.default.createElement(_Tabs2.default, {
+	          companies: this.state.companies,
+	          companyId: this.state.companyId,
+	          companyEmails: this.state.companyEmails
+	        })
 	      );
 	    }
 	  }]);
@@ -44024,7 +44029,7 @@
 	          ),
 	          _react2.default.createElement(_PeopleList2.default, {
 	            people: company.people,
-	            companyEmails: [],
+	            companyEmails: _this.props.companyEmails,
 	            companies: _this.props.companies
 	          })
 	        );
@@ -44059,7 +44064,8 @@
 
 	PeopleTabs.propTypes = {
 	  companies: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-	  companyId: _propTypes2.default.string.isRequired
+	  companyId: _propTypes2.default.string.isRequired,
+	  companyEmails: _propTypes2.default.objectOf(_propTypes2.default.any).isRequired
 	};
 
 	exports.default = PeopleTabs;
@@ -44965,6 +44971,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _propTypes = __webpack_require__(588);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
 	var _reactToolbox = __webpack_require__(179);
 
 	var _reactVirtualized = __webpack_require__(597);
@@ -45008,12 +45018,8 @@
 	        rightIcon: phoneCallToAction
 	      });
 	    }, _this.rowRenderer = function (_ref2) {
-	      var key = _ref2.key,
-	          index = _ref2.index,
-	          isScrolling = _ref2.isScrolling,
-	          isVisible = _ref2.isVisible,
+	      var index = _ref2.index,
 	          style = _ref2.style;
-
 	      return _react2.default.createElement(
 	        'div',
 	        {
@@ -45054,6 +45060,11 @@
 
 	  return PeopleList;
 	}(_react.Component);
+
+	PeopleList.propTypes = {
+	  people: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
+	  companyEmails: _propTypes2.default.objectOf(_propTypes2.default.any).isRequired
+	};
 
 	exports.default = PeopleList;
 
@@ -54946,22 +54957,6 @@
 	  return string.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 	};
 
-	var computeLegend = function computeLegend(someone, companyEmails) {
-	  var phone = someone.phone;
-	  var email = computeEmail(someone, companyEmails);
-
-	  if (phone && !email) {
-	    return phone;
-	  }
-	  if (!phone && email) {
-	    return email;
-	  }
-	  if (phone && email) {
-	    return phone + ' - ' + email;
-	  }
-	  return '';
-	};
-
 	var computeEmail = function computeEmail(someone, companyEmails) {
 	  if (someone.email) {
 	    return someone.email;
@@ -54972,13 +54967,28 @@
 	    if (splitedName && splitedName[0] && splitedName[1]) {
 	      var firstName = splitedName[0].replace('-', '').toLowerCase();
 	      var lastName = splitedName[2] ? '' + splitedName[1].toLowerCase()[0] + splitedName[2].toLowerCase()[0] : splitedName[1].toLowerCase()[0];
-	      if (companyEmails && someone.companyId) {
+	      if (Object.keys(companyEmails).length > 0 && someone.companyId) {
 	        return '' + firstName + lastName + companyEmails[someone.companyId];
 	      }
 	    }
 	  }
 
-	  return null;
+	  return '';
+	};
+
+	var computeLegend = function computeLegend(someone, companyEmails) {
+	  var phone = someone.phone;
+	  var email = computeEmail(someone, companyEmails);
+	  if (phone && !email) {
+	    return phone;
+	  }
+	  if (!phone && email) {
+	    return email;
+	  }
+	  if (phone && email) {
+	    return phone + ' - ' + email;
+	  }
+	  return '';
 	};
 
 	module.exports = {
