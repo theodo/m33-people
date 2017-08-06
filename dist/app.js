@@ -21574,25 +21574,10 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.state.isAuthenticated) {
-	        return _react2.default.createElement(_Authorize2.default, {
-	          onSignInSuccess: this.onSignInSuccess
-	        });
-	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_reactToolbox.Input, {
-	          type: 'text',
-	          placeholder: 'Search a name or a phone number',
-	          onChange: this.handleSearchChange,
-	          theme: _input2.default
-	        }),
-	        Object.keys(this.state.companyEmails).length === 0 ? null : _react2.default.createElement(_Tabs2.default, {
-	          companies: this.state.companies,
-	          companyId: this.state.companyId,
-	          companyEmails: this.state.companyEmails
-	        })
+	        !this.state.isAuthenticated || Object.keys(this.state.companyEmails).length === 0 ? this.renderAuthorizedButton() : this.renderLayout()
 	      );
 	    }
 	  }]);
@@ -21605,8 +21590,7 @@
 
 	  this.onSignInSuccess = function () {
 	    _this2.setState({
-	      isAuthenticated: true,
-	      companyId: 'sddsadsa'
+	      isAuthenticated: true
 	    });
 	    _this2.getCompanies();
 	  };
@@ -21627,6 +21611,30 @@
 
 	  this.handleSearchChange = function (value) {
 	    _this2.setState({ companies: _People2.default.searchPeople(value) });
+	  };
+
+	  this.renderAuthorizedButton = function () {
+	    return _react2.default.createElement(_Authorize2.default, {
+	      onSignInSuccess: _this2.onSignInSuccess
+	    });
+	  };
+
+	  this.renderLayout = function () {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(_reactToolbox.Input, {
+	        type: 'text',
+	        placeholder: 'Search a name or a phone number',
+	        onChange: _this2.handleSearchChange,
+	        theme: _input2.default
+	      }),
+	      _react2.default.createElement(_Tabs2.default, {
+	        companies: _this2.state.companies,
+	        companyId: _this2.state.companyId,
+	        companyEmails: _this2.state.companyEmails
+	      })
+	    );
 	  };
 	};
 

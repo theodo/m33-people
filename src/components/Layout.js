@@ -31,7 +31,6 @@ class Layout extends Component {
   onSignInSuccess = () => {
     this.setState({
       isAuthenticated: true,
-      companyId: 'sddsadsa',
     });
     this.getCompanies();
   }
@@ -54,30 +53,35 @@ class Layout extends Component {
     this.setState({ companies: People.searchPeople(value) });
   }
 
+  renderAuthorizedButton = () => (
+    <AuthorizeButton
+      onSignInSuccess={this.onSignInSuccess}
+    />
+  );
+
+  renderLayout = () => (
+    <div>
+      <Input
+        type="text"
+        placeholder="Search a name or a phone number"
+        onChange={this.handleSearchChange}
+        theme={inputStyle}
+      />
+      <PeopleTabs
+        companies={this.state.companies}
+        companyId={this.state.companyId}
+        companyEmails={this.state.companyEmails}
+      />
+    </div>
+  );
+
   render() {
-    if (!this.state.isAuthenticated) {
-      return (
-        <AuthorizeButton
-          onSignInSuccess={this.onSignInSuccess}
-        />
-      );
-    }
     return (
       <div>
-        <Input
-          type="text"
-          placeholder="Search a name or a phone number"
-          onChange={this.handleSearchChange}
-          theme={inputStyle}
-        />
         {
-          Object.keys(this.state.companyEmails).length === 0
-          ? null
-          : <PeopleTabs
-            companies={this.state.companies}
-            companyId={this.state.companyId}
-            companyEmails={this.state.companyEmails}
-          />
+          !this.state.isAuthenticated || Object.keys(this.state.companyEmails).length === 0
+          ? this.renderAuthorizedButton()
+          : this.renderLayout()
         }
       </div>
     );
