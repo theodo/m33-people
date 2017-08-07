@@ -21524,6 +21524,10 @@
 
 	var _People2 = _interopRequireDefault(_People);
 
+	var _progress_bar = __webpack_require__(416);
+
+	var _progress_bar2 = _interopRequireDefault(_progress_bar);
+
 	var _input = __webpack_require__(594);
 
 	var _input2 = _interopRequireDefault(_input);
@@ -21577,7 +21581,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        !this.state.isAuthenticated || Object.keys(this.state.companyEmails).length === 0 ? this.renderAuthorizedButton() : this.renderLayout()
+	        this.renderContainer()
 	      );
 	    }
 	  }]);
@@ -21598,7 +21602,7 @@
 	  this.getCompanies = function () {
 	    _People2.default.getCompanies(function (companies) {
 	      var companyEmails = {};
-	      _this2.state.companies.map(function (company) {
+	      companies.forEach(function (company) {
 	        companyEmails[company.id] = company.name.split('|')[1];
 	      });
 	      _this2.setState({
@@ -21635,6 +21639,23 @@
 	        companyEmails: _this2.state.companyEmails
 	      })
 	    );
+	  };
+
+	  this.renderLoader = function () {
+	    return _react2.default.createElement(
+	      'div',
+	      { style: { height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+	      _react2.default.createElement(_progress_bar2.default, { type: 'circular', mode: 'indeterminate' })
+	    );
+	  };
+
+	  this.renderContainer = function () {
+	    if (!_this2.state.isAuthenticated) {
+	      return _this2.renderAuthorizedButton();
+	    } else if (Object.keys(_this2.state.companyEmails).length === 0) {
+	      return _this2.renderLoader();
+	    }
+	    return _this2.renderLayout();
 	  };
 	};
 

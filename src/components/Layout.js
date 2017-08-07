@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Input } from 'react-toolbox';
 import AuthorizeButton from './Authorize';
 import People from '../services/People';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
+
 import inputStyle from './input.scss';
 import PeopleTabs from './Tabs.js';
 
@@ -38,7 +40,7 @@ class Layout extends Component {
   getCompanies = () => {
     People.getCompanies((companies) => {
       const companyEmails = {};
-      this.state.companies.map((company) => {
+      companies.forEach((company) => {
         companyEmails[company.id] = company.name.split('|')[1];
       });
       this.setState({
@@ -75,14 +77,25 @@ class Layout extends Component {
     </div>
   );
 
+  renderLoader = () => (
+    <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <ProgressBar type="circular" mode="indeterminate" />
+    </div>
+  )
+
+  renderContainer = () => {
+    if (!this.state.isAuthenticated) {
+      return this.renderAuthorizedButton();
+    } else if (Object.keys(this.state.companyEmails).length === 0) {
+      return this.renderLoader();
+    }
+    return this.renderLayout();
+  }
+
   render() {
     return (
       <div>
-        {
-          !this.state.isAuthenticated || Object.keys(this.state.companyEmails).length === 0
-          ? this.renderAuthorizedButton()
-          : this.renderLayout()
-        }
+        { this.renderContainer() }
       </div>
     );
   }
