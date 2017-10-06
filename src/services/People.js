@@ -1,6 +1,7 @@
 import map from 'lodash/map';
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
+import deburr from 'lodash/deburr';
 
 var companies = [];
 
@@ -62,7 +63,7 @@ const contactIsMatching = (searchText) => {
   }
   const lowerCaseSearchText = searchText.toLowerCase();
   return (contact) => {
-    const contactNameMatches = contact.name && contact.name.toLowerCase().indexOf(lowerCaseSearchText) > -1;
+    const contactNameMatches = contact.name && deburr(contact.name.toLowerCase()).indexOf(deburr(lowerCaseSearchText)) > -1;
     const contactPhoneMatches = contact.phone && contact.phone.indexOf(lowerCaseSearchText) > -1;
     const transformedPhoneNumberMatches = contact.phone && contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
     return (
