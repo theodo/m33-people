@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './components/Layout';
 
-import './style.scss'
+import './style.scss';
 
 ReactDOM.render(
-    <Layout />,
-  document.getElementById('app')
+  <Layout />,
+  document.getElementById('app'),
 );
