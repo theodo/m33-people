@@ -1,5 +1,5 @@
-const removeAccents = (string) => (
-  string.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+const removeAccents = string => (
+  string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 );
 
 const computeEmail = (someone, companyEmails) => {
@@ -40,5 +40,6 @@ const computeLegend = (someone, companyEmails) => {
 
 module.exports = {
   removeAccents,
+  computeEmail,
   computeLegend,
 };

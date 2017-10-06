@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, Link } from 'react-toolbox';
 import { AutoSizer, List as InfiniteList } from 'react-virtualized';
-import vCard from 'vcard-generator';
 
 import { computeLegend } from '../services/Email';
+import { buildVCard } from '../services/People';
 import itemStyle from './item.scss';
 
 class PeopleList extends Component {
   itemRenderer = (someone) => {
     const phoneCallToAction = <Link href={`tel:${someone.phone}`} icon="phone" theme={itemStyle} />;
     const legend = computeLegend(someone, this.props.companyEmails);
+    const onItemClick = this.exportVcard.bind(this, someone, this.props.companyEmails);
     return (
       <ListItem
         key={someone.name}
@@ -18,7 +19,7 @@ class PeopleList extends Component {
         caption={someone.name}
         legend={legend}
         rightIcon={phoneCallToAction}
-        onClick={this.exportVcard.bind(this, someone)}
+        onClick={onItemClick}
       />
     );
   }
@@ -32,35 +33,15 @@ class PeopleList extends Component {
     </div>
   );
 
-  exportVcard(someone) {
-    let card = vCard.generate({
-      name: {
-        familyName: someone.name.split(' ').slice(1).join(' '),
-        givenName: someone.name.split(' ')[0]
-      },
-      works: [{
-        organisation: 'Theodo'
-      }],
-      phones: [{
-        type: 'work',
-        text: someone.phone
-      }],
-      emails: [{
-        type: 'work',
-        text: someone.email
-      }],
-      photos: [{
-        type: 'work',
-        uri: someone.avatar
-      }]
-    });
+  exportVcard = (someone, companyEmails) => {
+    /* global document */
+    const card = buildVCard(someone, companyEmails);
 
-    let src = 'data:text/x-vcard;base64,' + window.btoa(unescape(encodeURIComponent(card)));
-    let anchor = document.createElement('a');
+    const src = `data:text/x-vcard;base64,${window.btoa(unescape(encodeURIComponent(card)))}`;
+    const anchor = document.createElement('a');
     anchor.setAttribute('href', src);
     anchor.click();
   }
-
 
   render() {
     return (
