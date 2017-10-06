@@ -28,22 +28,20 @@ class PeopleTabs extends Component {
       return (<div className={inputStyle.noResults}>No results</div>);
     }
 
-    const tabs = this.props.companies.map((company) => {
-      return (
-        <Tab
-          key={company.id}
-          label={company.name.split('|')[0]}
-          style={{ height: '100%', display: 'flex' }}
-        >
-          <Link href="https://trello.com/b/JLBMh7wp">Add someone</Link>
-          <List
-            people={company.people}
-            companyEmails={this.props.companyEmails}
-            companies={this.props.companies}
-          />
-        </Tab>
-      );
-    });
+    const tabs = this.props.companies.map(company => (
+      <Tab
+        key={company.id}
+        label={company.name.split('|')[0]}
+        style={{ height: '100%', display: 'flex' }}
+      >
+        <Link href="https://trello.com/b/JLBMh7wp">Add someone</Link>
+        <List
+          people={company.people}
+          companyEmails={this.props.companyEmails}
+          companies={this.props.companies}
+        />
+      </Tab>
+    ));
 
     const selectedCompanyIndex = this.props.companies
       .map(company => company.id)

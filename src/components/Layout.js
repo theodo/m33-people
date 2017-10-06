@@ -5,7 +5,7 @@ import AuthorizeButton from './Authorize';
 import People from '../services/People';
 
 import inputStyle from './input.scss';
-import PeopleTabs from './Tabs';
+import PeopleTabs from './PeopleTabs';
 
 class Layout extends Component {
   constructor(props) {
