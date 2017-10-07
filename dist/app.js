@@ -45627,14 +45627,15 @@
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PeopleList.__proto__ || Object.getPrototypeOf(PeopleList)).call.apply(_ref, [this].concat(args))), _this), _this.itemRenderer = function (someone) {
 	      var phoneCallToAction = _react2.default.createElement(_reactToolbox.Link, { href: 'tel:' + someone.phone, icon: 'phone', theme: _item2.default });
 	      var legend = (0, _Email.computeLegend)(someone, _this.props.companyEmails);
-	      var onItemClick = _this.exportVcard.bind(_this, someone, _this.props.companyEmails);
 	      return _react2.default.createElement(_reactToolbox.ListItem, {
 	        key: someone.name,
 	        avatar: someone.avatar,
 	        caption: someone.name,
 	        legend: legend,
 	        rightIcon: phoneCallToAction,
-	        onClick: onItemClick
+	        onClick: function onClick() {
+	          return _this.exportVcard(someone, _this.props.companyEmails);
+	        }
 	      });
 	    }, _this.rowRenderer = function (_ref2) {
 	      var index = _ref2.index,

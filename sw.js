@@ -1,4 +1,3 @@
-
 var current_version = 'm33-people-v26';
 
 self.addEventListener('install', e => {

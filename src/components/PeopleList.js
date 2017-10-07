@@ -11,7 +11,6 @@ class PeopleList extends Component {
   itemRenderer = (someone) => {
     const phoneCallToAction = <Link href={`tel:${someone.phone}`} icon="phone" theme={itemStyle} />;
     const legend = computeLegend(someone, this.props.companyEmails);
-    const onItemClick = this.exportVcard.bind(this, someone, this.props.companyEmails);
     return (
       <ListItem
         key={someone.name}
@@ -19,7 +18,7 @@ class PeopleList extends Component {
         caption={someone.name}
         legend={legend}
         rightIcon={phoneCallToAction}
-        onClick={onItemClick}
+        onClick={() => this.exportVcard(someone, this.props.companyEmails)}
       />
     );
   }
