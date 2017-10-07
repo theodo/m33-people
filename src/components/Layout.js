@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Input } from 'react-toolbox';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
 import AuthorizeButton from './Authorize';
 import People from '../services/People';
-import ProgressBar from 'react-toolbox/lib/progress_bar';
 
 import inputStyle from './input.scss';
-import PeopleTabs from './Tabs.js';
+import PeopleTabs from './PeopleTabs';
 
 class Layout extends Component {
   constructor(props) {

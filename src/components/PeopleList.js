@@ -4,6 +4,7 @@ import { ListItem, Link } from 'react-toolbox';
 import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 
 import { computeLegend } from '../services/Email';
+import { buildVCard } from '../services/People';
 import itemStyle from './item.scss';
 
 class PeopleList extends Component {
@@ -17,6 +18,7 @@ class PeopleList extends Component {
         caption={someone.name}
         legend={legend}
         rightIcon={phoneCallToAction}
+        onClick={() => this.exportVcard(someone, this.props.companyEmails)}
       />
     );
   }
@@ -30,6 +32,15 @@ class PeopleList extends Component {
     </div>
   );
 
+  exportVcard = (someone, companyEmails) => {
+    /* global document */
+    const card = buildVCard(someone, companyEmails);
+
+    const src = `data:text/x-vcard;base64,${window.btoa(unescape(encodeURIComponent(card)))}`;
+    const anchor = document.createElement('a');
+    anchor.setAttribute('href', src);
+    anchor.click();
+  }
 
   render() {
     return (
