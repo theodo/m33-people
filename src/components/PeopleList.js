@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ListItem, Link } from 'react-toolbox';
+import { ListItem, ListItemText } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import Button from 'material-ui/Button';
+import PhoneIcon from 'material-ui-icons/Phone';
 import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 
 import { computeLegend } from '../services/Email';
 import { buildVCard } from '../services/People';
-import itemStyle from './item.scss';
 
 class PeopleList extends Component {
   itemRenderer = (someone) => {
-    const phoneCallToAction = <Link href={`tel:${someone.phone}`} icon="phone" theme={itemStyle} />;
     const legend = computeLegend(someone, this.props.companyEmails);
     return (
       <ListItem
+        button
         key={someone.name}
-        avatar={someone.avatar}
-        caption={someone.name}
-        legend={legend}
-        rightIcon={phoneCallToAction}
         onClick={() => this.exportVcard(someone, this.props.companyEmails)}
-      />
+      >
+        <Avatar alt={someone.name} src={someone.avatar} />
+        <ListItemText primary={someone.name} secondary={legend} />
+        <Button fab color="primary" aria-label="call" href={`tel:${someone.phone}`}>
+          <PhoneIcon />
+        </Button>
+      </ListItem>
     );
   }
 
