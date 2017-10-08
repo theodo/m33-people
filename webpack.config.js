@@ -1,6 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 
 const config = {
   entry: './src/index.jsx',
@@ -31,7 +30,6 @@ const config = {
   devServer: {
     contentBase: './dist',
   },
-  postcss: [autoprefixer],
   plugins: [
     new ExtractTextPlugin('app.css', { allChunks: true }),
   ],
