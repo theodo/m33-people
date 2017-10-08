@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
-import ProgressBar from 'react-toolbox/lib/progress_bar';
+import { CircularProgress } from 'material-ui/Progress';
 import AuthorizeButton from './Authorize';
 import People from '../services/People';
 
@@ -78,7 +78,7 @@ class Layout extends Component {
 
   renderLoader = () => (
     <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <ProgressBar type="circular" mode="indeterminate" />
+      <CircularProgress />
     </div>
   )
 
