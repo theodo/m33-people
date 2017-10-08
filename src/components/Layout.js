@@ -51,7 +51,9 @@ class Layout extends Component {
   }
 
   handleSearchChange = (event) => {
-    this.setState({ companies: People.searchPeople(event.target.value) });
+    this.setState({
+      companies: People.searchPeople(event.target.value),
+    });
   }
 
   renderAuthorizedButton = () => (

@@ -9,7 +9,7 @@ const config = {
     filename: 'app.js',
   },
   resolve: {
-    extensions: ['', '.scss', '.js', '.json'],
+    extensions: ['', '.js', '.json'],
     modulesDirectories: [
       'node_modules',
       path.resolve(__dirname, './node_modules'),

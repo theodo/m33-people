@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 
-
-import itemStyle from './item.scss';
-
 class AuthorizeButton extends React.Component {
   constructor(props) {
     super(props);
