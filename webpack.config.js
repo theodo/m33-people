@@ -32,12 +32,6 @@ const config = {
     contentBase: './dist',
   },
   postcss: [autoprefixer],
-  sassLoader: {
-    sassLoader: {
-      data: `@import "${path.resolve(__dirname, 'theme/_config.scss')} ";'`,
-    },
-    includePaths: [path.resolve(__dirname, './src')],
-  },
   plugins: [
     new ExtractTextPlugin('app.css', { allChunks: true }),
   ],

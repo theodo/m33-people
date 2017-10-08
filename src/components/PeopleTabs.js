@@ -5,14 +5,6 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 
 import List from './PeopleList';
 
-function TabContainer(props) {
-  return <div style={{ padding: 20, display: 'flex', height: '100%' }}>{props.children}</div>;
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 const findCompanyById = (companies, companyId) => (
   companies.find(company => (
     company.id === companyId
@@ -53,7 +45,7 @@ class PeopleTabs extends Component {
             }
           </Tabs>
         </AppBar>
-        <TabContainer>
+        <div style={{ padding: 20, display: 'flex', height: '100%' }}>
           {
             selectedCompany && selectedCompany.people &&
             <List
@@ -62,7 +54,7 @@ class PeopleTabs extends Component {
               companies={this.props.companies}
             />
           }
-        </TabContainer>
+        </div>
       </div>
     );
   }
