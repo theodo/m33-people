@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Input } from 'react-toolbox';
+import TextField from 'material-ui/TextField';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import AuthorizeButton from './Authorize';
 import People from '../services/People';
 
-import inputStyle from './input.scss';
 import PeopleTabs from './PeopleTabs';
 
 class Layout extends Component {
@@ -51,8 +50,8 @@ class Layout extends Component {
     });
   }
 
-  handleSearchChange = (value) => {
-    this.setState({ companies: People.searchPeople(value) });
+  handleSearchChange = (event) => {
+    this.setState({ companies: People.searchPeople(event.target.value) });
   }
 
   renderAuthorizedButton = () => (
@@ -63,11 +62,11 @@ class Layout extends Component {
 
   renderLayout = () => (
     <div>
-      <Input
-        type="text"
-        placeholder="Search a name or a phone number"
+      <TextField
+        label="Search a name or a phone number"
+        type="search"
         onChange={this.handleSearchChange}
-        theme={inputStyle}
+        style={{ width: '100%' }}
       />
       <PeopleTabs
         companies={this.state.companies}
