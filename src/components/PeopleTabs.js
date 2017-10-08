@@ -37,13 +37,12 @@ class PeopleTabs extends Component {
                   key={company.id}
                   value={company.id}
                   label={company.name.split('|')[0]}
-                >
-                  <a href="https://trello.com/b/JLBMh7wp">Add someone</a>
-                </Tab>
+                />
               ))
             }
           </Tabs>
         </AppBar>
+        <a href="https://trello.com/b/JLBMh7wp">Add someone</a>
         <div style={{ padding: 20, display: 'flex', height: '100%' }}>
           {
             selectedCompany && selectedCompany.people &&
