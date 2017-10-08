@@ -1,9 +1,9 @@
-var current_version = 'm33-people-v27';
+const current_version = 'm33-people-v27';
 
-self.addEventListener('install', e => {
+self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(current_version).then(cache => {
-      return cache.addAll([
+    caches.open(current_version).then(cache => (
+      cache.addAll([
         '/m33-people/',
         '/m33-people/index.html',
         '/m33-people/dist/app.css',
@@ -16,29 +16,29 @@ self.addEventListener('install', e => {
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
       ])
-      .then(() => self.skipWaiting());
-    })
-  )
+      .then(() => self.skipWaiting())
+    )),
+  );
 });
 
-self.addEventListener('activate', function(event) {
-    var cacheWhitelist = [current_version];
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [current_version];
 
-    event.waitUntil(
-        caches.keys().then(function(keyList) {
-            return Promise.all(keyList.map(function(key) {
-                if (cacheWhitelist.indexOf(key) === -1) {
-                    return caches.delete(key);
-                }
-            }));
-        })
-    );
+  event.waitUntil(
+    caches.keys().then(keyList => (
+      Promise.all(keyList.map((key) => {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(key);
+        }
+      }))
+    )),
+  );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request).then(response => (
+      response || fetch(event.request)
+    )),
   );
 });

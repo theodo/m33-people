@@ -6,8 +6,10 @@
     "import"
   ],
   "globals": {
-    "window": true,
-    "document": true
+    "caches": true,
+    "document": true,
+    "self": true,
+    "window": true
   },
   "parser": "babel-eslint",
   "rules": {
