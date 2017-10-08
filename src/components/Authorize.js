@@ -29,7 +29,7 @@ class AuthorizeButton extends React.Component {
   }
   render() {
     return (
-      <div className={itemStyle.authorizeContainer}>
+      <div>
         <Button
           onClick={this.authorize}
           raised

@@ -12,7 +12,6 @@ const findCompanyById = (companies, companyId) => (
 );
 
 class PeopleTabs extends Component {
-
   state = {
     selectedCompany: findCompanyById(this.props.companies, this.props.companyId),
     companyId: this.props.companyId,
