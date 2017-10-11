@@ -6,6 +6,9 @@
     "import"
   ],
   "globals": {
+    "caches": true,
+    "document": true,
+    "self": true,
     "window": true
   },
   "parser": "babel-eslint",

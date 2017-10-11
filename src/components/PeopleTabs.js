@@ -1,62 +1,59 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Tab,
-  Tabs,
-  Link,
-} from 'react-toolbox';
-import inputStyle from './input.scss';
+import AppBar from 'material-ui/AppBar';
+import Tabs, { Tab } from 'material-ui/Tabs';
+
 import List from './PeopleList';
-import tabStyle from './tabs.scss';
+
+const findCompanyById = (companies, companyId) => (
+  companies.find(company => (
+    company.id === companyId
+  ))
+);
 
 class PeopleTabs extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      companyId: props.companyId,
-    };
-  }
-
-
-  handleTabChange = (index) => {
-    this.setState({ companyId: this.props.companies[index].id });
+  state = {
+    selectedCompany: findCompanyById(this.props.companies, this.props.companyId),
+    companyId: this.props.companyId,
   };
 
-  renderTabs = () => {
-    if (this.props.companies.length === 0) {
-      return (<div className={inputStyle.noResults}>No results</div>);
-    }
-
-    const tabs = this.props.companies.map(company => (
-      <Tab
-        key={company.id}
-        label={company.name.split('|')[0]}
-        style={{ height: '100%', display: 'flex' }}
-      >
-        <Link href="https://trello.com/b/JLBMh7wp">Add someone</Link>
-        <List
-          people={company.people}
-          companyEmails={this.props.companyEmails}
-          companies={this.props.companies}
-        />
-      </Tab>
-    ));
-
-    const selectedCompanyIndex = this.props.companies
-      .map(company => company.id)
-      .indexOf(this.state.companyId);
-
-    return (
-      <Tabs index={selectedCompanyIndex} onChange={this.handleTabChange} inverse theme={tabStyle}>
-        {tabs}
-      </Tabs>
-    );
-  }
+  handleTabChange = (event, index) => {
+    const selectedCompany = findCompanyById(this.props.companies, index);
+    this.setState({
+      companyId: index,
+      selectedCompany,
+    });
+  };
 
   render() {
+    const selectedCompany = findCompanyById(this.props.companies, this.state.selectedCompany.id);
     return (
-      this.renderTabs()
+      <div>
+        <AppBar position="static">
+          <Tabs value={this.state.companyId} onChange={this.handleTabChange}>
+            {
+              this.props.companies.map(company => (
+                <Tab
+                  key={company.id}
+                  value={company.id}
+                  label={company.name.split('|')[0]}
+                />
+              ))
+            }
+          </Tabs>
+        </AppBar>
+        <a href="https://trello.com/b/JLBMh7wp">Add someone</a>
+        <div style={{ padding: 20, display: 'flex', height: '100%' }}>
+          {
+            selectedCompany && selectedCompany.people &&
+            <List
+              people={selectedCompany.people}
+              companyEmails={this.props.companyEmails}
+              companies={this.props.companies}
+            />
+          }
+        </div>
+      </div>
     );
   }
 }

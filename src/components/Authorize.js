@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-toolbox/lib/button';
-
-import itemStyle from './item.scss';
+import Button from 'material-ui/Button';
 
 class AuthorizeButton extends React.Component {
   constructor(props) {
@@ -31,14 +29,14 @@ class AuthorizeButton extends React.Component {
   }
   render() {
     return (
-      <div className={itemStyle.authorizeContainer}>
+      <div>
         <Button
-          className="authorize-button"
           onClick={this.authorize}
           raised
-          primary
-          label="Connect To Trello"
-        />
+          color="primary"
+        >
+          Connect To Trello
+        </Button>
       </div>
     );
   }
