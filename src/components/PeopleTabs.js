@@ -43,7 +43,7 @@ class PeopleTabs extends Component {
           </Tabs>
         </AppBar>
         <a href="https://trello.com/b/JLBMh7wp">Add someone</a>
-        <div style={{ padding: 20, display: 'flex', height: '100%' }}>
+        <div style={{ display: 'flex', height: '100%' }}>
           {
             selectedCompany && selectedCompany.people &&
             <List
