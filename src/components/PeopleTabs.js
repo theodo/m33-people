@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
+import Button from 'material-ui/Button';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
 import List from './PeopleList';
@@ -28,7 +29,7 @@ class PeopleTabs extends Component {
   render() {
     const selectedCompany = findCompanyById(this.props.companies, this.state.selectedCompany.id);
     return (
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <AppBar position="static">
           <Tabs
             value={this.state.companyId}
@@ -47,7 +48,7 @@ class PeopleTabs extends Component {
             }
           </Tabs>
         </AppBar>
-        <a href="https://trello.com/b/JLBMh7wp">Add someone</a>
+        <Button href="https://trello.com/b/JLBMh7wp" style={{ alignSelf: 'center' }}>Add someone</Button>
         <div style={{ display: 'flex', height: '100%' }}>
           {
             selectedCompany && selectedCompany.people &&

@@ -47099,6 +47099,10 @@
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
+	var _Button = __webpack_require__(334);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
 	var _Tabs = __webpack_require__(492);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
@@ -47153,7 +47157,7 @@
 	      var selectedCompany = findCompanyById(this.props.companies, this.state.selectedCompany.id);
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { style: { display: 'flex', flexDirection: 'column' } },
 	        _react2.default.createElement(
 	          _AppBar2.default,
 	          { position: 'static' },
@@ -47175,8 +47179,8 @@
 	          )
 	        ),
 	        _react2.default.createElement(
-	          'a',
-	          { href: 'https://trello.com/b/JLBMh7wp' },
+	          _Button2.default,
+	          { href: 'https://trello.com/b/JLBMh7wp', style: { alignSelf: 'center' } },
 	          'Add someone'
 	        ),
 	        _react2.default.createElement(
@@ -49068,10 +49072,6 @@
 	var _Avatar = __webpack_require__(509);
 
 	var _Avatar2 = _interopRequireDefault(_Avatar);
-
-	var _Button = __webpack_require__(334);
-
-	var _Button2 = _interopRequireDefault(_Button);
 
 	var _IconButton = __webpack_require__(511);
 
