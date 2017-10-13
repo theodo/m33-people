@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import PhoneIcon from 'material-ui-icons/Phone';
 import { AutoSizer, List as InfiniteList } from 'react-virtualized';
 
@@ -20,9 +21,9 @@ class PeopleList extends Component {
       >
         <Avatar alt={someone.name} src={someone.avatar} />
         <ListItemText primary={someone.name} secondary={legend} />
-        <Button fab color="primary" aria-label="call" href={`tel:${someone.phone}`}>
+        <IconButton fab color="primary" aria-label="call" href={`tel:${someone.phone}`}>
           <PhoneIcon />
-        </Button>
+        </IconButton>
       </ListItem>
     );
   }

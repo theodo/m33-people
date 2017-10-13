@@ -30,7 +30,12 @@ class PeopleTabs extends Component {
     return (
       <div>
         <AppBar position="static">
-          <Tabs value={this.state.companyId} onChange={this.handleTabChange}>
+          <Tabs
+            value={this.state.companyId}
+            onChange={this.handleTabChange}
+            scrollable
+            scrollButtons="auto"
+          >
             {
               this.props.companies.map(company => (
                 <Tab
