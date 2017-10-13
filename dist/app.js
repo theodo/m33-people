@@ -21252,7 +21252,7 @@
 	        label: 'Search a name or a phone number',
 	        type: 'search',
 	        onChange: _this2.handleSearchChange,
-	        style: { width: '100%' }
+	        style: { width: '100%', marginTop: 10 }
 	      }),
 	      _react2.default.createElement(_PeopleTabs2.default, {
 	        companies: _this2.state.companies,

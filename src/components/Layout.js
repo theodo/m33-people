@@ -68,7 +68,7 @@ class Layout extends Component {
         label="Search a name or a phone number"
         type="search"
         onChange={this.handleSearchChange}
-        style={{ width: '100%' }}
+        style={{ width: '100%', marginTop: 10 }}
       />
       <PeopleTabs
         companies={this.state.companies}
