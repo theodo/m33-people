@@ -20,7 +20,7 @@ class PeopleList extends Component {
       >
         <Avatar alt={someone.name} src={someone.avatar} />
         <ListItemText primary={someone.name} secondary={legend} />
-        <IconButton fab color="primary" aria-label="call" href={`tel:${someone.phone}`}>
+        <IconButton color="primary" aria-label="call" href={`tel:${someone.phone}`}>
           <PhoneIcon />
         </IconButton>
       </ListItem>
