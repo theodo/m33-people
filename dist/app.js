@@ -53482,7 +53482,9 @@
 	        _react2.default.createElement(_List.ListItemText, { primary: someone.name, secondary: legend }),
 	        _react2.default.createElement(
 	          _IconButton2.default,
-	          { color: 'primary', 'aria-label': 'call', href: 'tel:' + someone.phone },
+	          { onClick: function onClick(event) {
+	              return event.preventDefault;
+	            }, color: 'primary', 'aria-label': 'call', href: 'tel:' + someone.phone },
 	          _react2.default.createElement(_Phone2.default, null)
 	        )
 	      );
