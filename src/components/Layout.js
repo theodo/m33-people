@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 import AuthorizeButton from './Authorize';
-import People from '../services/People';
 
+import People from '../services/People';
 import PeopleTabs from './PeopleTabs';
 
 class Layout extends Component {
