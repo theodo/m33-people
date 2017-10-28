@@ -1,6 +1,5 @@
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
-import deburr from 'lodash/deburr';
 import startCase from 'lodash/startCase';
 import { computeEmail } from './Email';
 
@@ -59,43 +58,6 @@ const getCompanies = (callback) => {
   });
 };
 
-const contactIsMatching = (searchText) => {
-  if (!searchText) {
-    return false;
-  }
-  const lowerCaseSearchText = searchText.toLowerCase();
-  return (contact) => {
-    const contactNameMatches = contact.name &&
-      deburr(contact.name.toLowerCase()).indexOf(deburr(lowerCaseSearchText)) > -1;
-    const contactPhoneMatches = contact.phone &&
-      contact.phone.indexOf(lowerCaseSearchText) > -1;
-    const transformedPhoneNumberMatches = contact.phone &&
-      contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
-    return (
-      contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches
-    );
-  };
-};
-
-const searchPeople = (searchText) => {
-  if (!searchText) {
-    return companies;
-  }
-  const filterFunc = contactIsMatching(searchText);
-  const matchingCompanies = companies.reduce((_matchingCompanies, company) => {
-    const matchingPeople = company.people.filter(filterFunc);
-    if (matchingPeople.length > 0) {
-      _matchingCompanies.push({
-        id: company.id,
-        name: company.name,
-        people: matchingPeople,
-      });
-    }
-    return _matchingCompanies;
-  }, []);
-  return matchingCompanies;
-};
-
 const buildCompanyName = (companyEmail) => {
   if (companyEmail === '@theodo.co.uk') return 'Theodo UK';
   if (companyEmail === '@bam.tech') return 'BAM';
@@ -119,6 +81,5 @@ END:VCARD`;
 
 module.exports = {
   getCompanies,
-  searchPeople,
   buildVCard,
 };

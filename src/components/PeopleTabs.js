@@ -41,7 +41,6 @@ class PeopleTabs extends Component {
             <List
               people={selectedCompany.people}
               companyEmails={this.props.companyEmails}
-              companies={this.props.companies}
             />
           }
         </div>
