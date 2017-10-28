@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
+import styled from 'styled-components';
+
+const StyledContainer = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+`;
 
 class AuthorizeButton extends React.Component {
   constructor(props) {
@@ -29,7 +38,7 @@ class AuthorizeButton extends React.Component {
   }
   render() {
     return (
-      <div>
+      <StyledContainer>
         <Button
           onClick={this.authorize}
           raised
@@ -37,7 +46,7 @@ class AuthorizeButton extends React.Component {
         >
           Connect To Trello
         </Button>
-      </div>
+      </StyledContainer>
     );
   }
 }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
-import Tabs, { Tab } from 'material-ui/Tabs';
 
+import AppBar from './AppBar';
 import List from './PeopleList';
 
 const findCompanyById = (companies, companyId) => (
@@ -30,24 +29,11 @@ class PeopleTabs extends Component {
     const selectedCompany = findCompanyById(this.props.companies, this.state.selectedCompany.id);
     return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <AppBar position="static">
-          <Tabs
-            value={this.state.companyId}
-            onChange={this.handleTabChange}
-            scrollable
-            scrollButtons="auto"
-          >
-            {
-              this.props.companies.map(company => (
-                <Tab
-                  key={company.id}
-                  value={company.id}
-                  label={company.name.split('|')[0]}
-                />
-              ))
-            }
-          </Tabs>
-        </AppBar>
+        <AppBar
+          companies={this.props.companies}
+          companyId={this.state.companyId}
+          onTabChange={this.handleTabChange}
+        />
         <Button href="https://trello.com/b/JLBMh7wp" style={{ alignSelf: 'center' }}>Add someone</Button>
         <div style={{ display: 'flex', height: '100%' }}>
           {
@@ -55,7 +41,6 @@ class PeopleTabs extends Component {
             <List
               people={selectedCompany.people}
               companyEmails={this.props.companyEmails}
-              companies={this.props.companies}
             />
           }
         </div>

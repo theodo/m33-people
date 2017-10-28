@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 import AuthorizeButton from './Authorize';
-import People from '../services/People';
 
+import People from '../services/People';
+import getSearchedPeople from '../services/Search';
 import PeopleTabs from './PeopleTabs';
+import List from './PeopleList';
 
 class Layout extends Component {
   constructor(props) {
@@ -18,6 +20,8 @@ class Layout extends Component {
       isAuthenticated,
       companyEmails: {},
       companies,
+      searchString: '',
+      allSearchedPeople: [],
     };
   }
 
@@ -52,7 +56,8 @@ class Layout extends Component {
 
   handleSearchChange = (event) => {
     this.setState({
-      companies: People.searchPeople(event.target.value),
+      allSearchedPeople: getSearchedPeople(this.state.companies, event.target.value),
+      searchString: event.target.value,
     });
   }
 
@@ -70,11 +75,20 @@ class Layout extends Component {
         onChange={this.handleSearchChange}
         style={{ width: '100%', marginTop: 10 }}
       />
-      <PeopleTabs
-        companies={this.state.companies}
-        companyId={this.state.companyId}
-        companyEmails={this.state.companyEmails}
-      />
+      {
+        this.state.searchString.length === 0
+        ? <PeopleTabs
+          companies={this.state.companies}
+          companyId={this.state.companyId}
+          companyEmails={this.state.companyEmails}
+        />
+        : <div style={{ display: 'flex', height: '100%' }}>
+          <List
+            people={this.state.allSearchedPeople}
+            companyEmails={this.state.companyEmails}
+          />
+        </div>
+      }
     </div>
   );
 
