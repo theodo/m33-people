@@ -4,20 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest src/",
     "build": "webpack",
     "flow": "flow src/",
+    "lint": "eslint src/",
     "watch": "webpack-dev-server",
     "start": "webpack-dev-server",
     "watch:lan": "webpack-dev-server --host 0.0.0.0"
   },
   "babel": {
-    "presets": [
-      "es2015",
-      "stage-0",
-      "react",
-      "flow"
-    ]
+    "presets": ["es2015", "stage-0", "react", "flow"]
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ],
+    "setupFiles": ["jest-localstorage-mock"]
   },
   "repository": {
     "type": "git",
@@ -33,6 +36,8 @@
   "dependencies": {
     "babel-core": "^6.21.0",
     "downloadjs": "^1.4.7",
+    "enzyme": "3.1.1",
+    "enzyme-adapter-react-16": "1.0.4",
     "jquery": "3.1.0",
     "lodash": "^4.17.4",
     "material-ui": "1.0.0-beta.16",
@@ -42,6 +47,7 @@
     "react": "16.0.0",
     "react-addons-update": "15.6.2",
     "react-dom": "16.0.0",
+    "react-test-renderer": "16.0.0",
     "react-virtualized": "^9.9.0",
     "styled-components": "2.2.1",
     "webpack": "^1.13.1"
@@ -50,6 +56,7 @@
     "babel": "6.5.2",
     "babel-cli": "6.26.0",
     "babel-eslint": "^7.2.3",
+    "babel-jest": "21.2.0",
     "babel-loader": "6.2.4",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-flow": "6.23.0",
@@ -58,11 +65,15 @@
     "css-loader": "0.23.1",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",
+    "eslint-plugin-flowtype": "2.39.1",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "21.4.1",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "1.0.1",
     "flow-bin": "0.57.3",
+    "jest": "21.2.1",
+    "jest-localstorage-mock": "2.1.0",
     "react-hot-loader": "1.3.0",
     "style-loader": "0.13.1",
     "webpack-dev-server": "1.14.1"

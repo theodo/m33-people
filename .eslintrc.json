@@ -1,19 +1,47 @@
 {
-  "extends": "airbnb",
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import"
-  ],
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "plugin:flowtype/recommended"],
+  "plugins": ["react", "jsx-a11y", "import", "jest", "flowtype"],
+  "env": {
+    "jest/globals": true
+  },
   "globals": {
-    "caches": true,
+    "alert": true,
     "document": true,
-    "self": true,
+    "localStorage": true,
+    "navigator": true,
     "window": true
   },
-  "parser": "babel-eslint",
   "rules": {
-    "func-names": ["error", "never"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/sort-comp": [
+      "error",
+      {
+        "order": [
+          "type-annotations",
+          "static-methods",
+          "lifecycle",
+          "/^on.+$/",
+          "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
+          "everything-else",
+          "/^render.+$/",
+          "render"
+        ]
+      }
+    ],
+    "no-extra-boolean-cast": 0,
+    "flowtype/define-flow-type": 1,
+    "flowtype/delimiter-dangle": [1, "always-multiline"],
+    "flowtype/semi": [1, "always"],
+    "flowtype/use-flow-type": 1,
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "no-alert": 0,
+    "no-confusing-arrow": 0,
+    "no-plusplus": 0,
+    "react/no-unused-prop-types": 0,
+    "react/prop-types": 0,
+    "react/require-default-props": 0
   }
 }
