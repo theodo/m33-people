@@ -70,7 +70,7 @@ class Layout extends Component {
   renderLayout = () => (
     <div>
       <TextField
-        label="Search a name, phone number or skill (ex: symfony)"
+        label="Search a name, phone number or skill"
         type="search"
         onChange={this.handleSearchChange}
         style={{ width: '100%', marginTop: 10 }}
