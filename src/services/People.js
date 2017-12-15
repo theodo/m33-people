@@ -12,15 +12,22 @@ const parsePeople = (someoneCard) => {
   }
   const phoneRegex = /\[PHONE=(.+)\]/g;
   const emailRegex = /\[EMAIL=(.+)\]/g;
+  const skillsRegex = /\[SKILLS=(.+)\]/g;
   const phoneMatch = phoneRegex.exec(someoneCard.desc);
   const emailMatch = emailRegex.exec(someoneCard.desc);
+  const skillsMatch = skillsRegex.exec(someoneCard.desc);
   let phone = null;
   let email = null;
+  let skills = null;
+
   if (phoneMatch) {
     phone = phoneMatch[1];
   }
   if (emailMatch) {
     email = emailMatch[1];
+  }
+  if (skillsMatch) {
+    skills = skillsMatch[1].split(',');
   }
 
   return {
@@ -29,6 +36,7 @@ const parsePeople = (someoneCard) => {
     companyId: someoneCard.idList,
     phone,
     email,
+    skills,
   };
 };
 

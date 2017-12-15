@@ -21260,7 +21260,7 @@
 	      'div',
 	      null,
 	      _react2.default.createElement(_TextField2.default, {
-	        label: 'Search a name or a phone number',
+	        label: 'Search a name, phone number or skill (ex: symfony)',
 	        type: 'search',
 	        onChange: _this2.handleSearchChange,
 	        style: { width: '100%', marginTop: 10 }
@@ -46288,15 +46288,22 @@
 	  }
 	  var phoneRegex = /\[PHONE=(.+)\]/g;
 	  var emailRegex = /\[EMAIL=(.+)\]/g;
+	  var skillsRegex = /\[SKILLS=(.+)\]/g;
 	  var phoneMatch = phoneRegex.exec(someoneCard.desc);
 	  var emailMatch = emailRegex.exec(someoneCard.desc);
+	  var skillsMatch = skillsRegex.exec(someoneCard.desc);
 	  var phone = null;
 	  var email = null;
+	  var skills = null;
+
 	  if (phoneMatch) {
 	    phone = phoneMatch[1];
 	  }
 	  if (emailMatch) {
 	    email = emailMatch[1];
+	  }
+	  if (skillsMatch) {
+	    skills = skillsMatch[1].split(',');
 	  }
 
 	  return {
@@ -46304,7 +46311,8 @@
 	    avatar: avatar,
 	    companyId: someoneCard.idList,
 	    phone: phone,
-	    email: email
+	    email: email,
+	    skills: skills
 	  };
 	};
 
@@ -51379,7 +51387,21 @@
 	  var contactNameMatches = contact.name && (0, _deburr2.default)(contact.name.toLowerCase()).indexOf((0, _deburr2.default)(lowerCaseSearchText)) > -1;
 	  var contactPhoneMatches = contact.phone && contact.phone.indexOf(lowerCaseSearchText) > -1;
 	  var transformedPhoneNumberMatches = contact.phone && contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
-	  return contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches;
+	  var skillsMatches = function skillsMatches(contact) {
+	    if (!contact.skills) {
+	      return false;
+	    }
+
+	    for (var skillIndex in contact.skills) {
+	      if (contact.skills[skillIndex].indexOf(lowerCaseSearchText) > -1) {
+	        return true;
+	      }
+	    }
+
+	    return false;
+	  };
+
+	  return contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches || skillsMatches(contact);
 	};
 
 

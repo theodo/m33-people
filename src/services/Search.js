@@ -9,8 +9,22 @@ const contactIsMatching = (contact, searchText) => {
     contact.phone.indexOf(lowerCaseSearchText) > -1;
   const transformedPhoneNumberMatches = contact.phone &&
     contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
+  const skillsMatches = (contact) => {
+    if (!contact.skills) {
+      return false;
+    }
+
+    for (var skillIndex in contact.skills) {
+      if (contact.skills[skillIndex].indexOf(lowerCaseSearchText) > -1) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   return (
-    contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches
+    contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches || skillsMatches(contact)
   );
 };
 
