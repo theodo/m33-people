@@ -21260,7 +21260,7 @@
 	      'div',
 	      null,
 	      _react2.default.createElement(_TextField2.default, {
-	        label: 'Search a name, phone number or skill (ex: symfony)',
+	        label: 'Search a name, phone number or skill',
 	        type: 'search',
 	        onChange: _this2.handleSearchChange,
 	        style: { width: '100%', marginTop: 10 }
