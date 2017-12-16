@@ -1,6 +1,6 @@
-const removeAccents = string => (
-  string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-);
+// @flow
+const removeAccents = string =>
+  string.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 const computeEmail = (someone, companyEmails) => {
   if (someone.email) {
@@ -11,7 +11,9 @@ const computeEmail = (someone, companyEmails) => {
     const splitedName = removeAccents(someone.name).split(' ');
     if (splitedName && splitedName[0] && splitedName[1]) {
       const firstName = splitedName[0].replace('-', '').toLowerCase();
-      const lastName = splitedName[2] ? `${splitedName[1].toLowerCase()[0]}${splitedName[2].toLowerCase()[0]}` : splitedName[1].toLowerCase()[0];
+      const lastName = splitedName[2]
+        ? `${splitedName[1].toLowerCase()[0]}${splitedName[2].toLowerCase()[0]}`
+        : splitedName[1].toLowerCase()[0];
       if (Object.keys(companyEmails).length > 0 && someone.companyId) {
         return `${firstName}${lastName}${companyEmails[someone.companyId]}`;
       }
@@ -20,7 +22,6 @@ const computeEmail = (someone, companyEmails) => {
 
   return '';
 };
-
 
 const computeLegend = (someone, companyEmails) => {
   const phone = someone.phone;
@@ -36,7 +37,6 @@ const computeLegend = (someone, companyEmails) => {
   }
   return '';
 };
-
 
 module.exports = {
   removeAccents,

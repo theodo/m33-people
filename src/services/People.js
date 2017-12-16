@@ -1,3 +1,4 @@
+// @flow
 import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import startCase from 'lodash/startCase';
@@ -40,7 +41,7 @@ const parsePeople = (someoneCard) => {
   };
 };
 
-const getCompanies = (callback) => {
+export const getCompanies = (callback) => {
   if (companies.length > 0) {
     return callback(companies);
   }
@@ -53,15 +54,23 @@ const getCompanies = (callback) => {
         name: list.name,
         people: peopleByCompanyId[list.id] || [],
       }));
-      window.localStorage.setItem('ta_dir_companies', JSON.stringify(companies));
+      window.localStorage.setItem(
+        'ta_dir_companies',
+        JSON.stringify(companies),
+      );
       callback(companies);
     });
-  })
-  .catch(() => {
+  }).catch(() => {
     window.localStorage.removeItem('ta_dir_trello_token');
     /* eslint no-alert: "off" */
-    if (window.confirm('You are not allow to use this application, maybe, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?')) {
-      window.open('https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture');
+    if (
+      window.confirm(
+        'You are not allow to use this application, maybe, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?',
+      )
+    ) {
+      window.open(
+        'https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture',
+      );
     }
   });
 };
@@ -72,8 +81,11 @@ const buildCompanyName = (companyEmail) => {
   return startCase(companyEmail.match(/@(.+)\./)[1]);
 };
 
-const buildVCard = (someone, companyEmails) => {
-  const lastName = someone.name.split(' ').slice(1).join(' ');
+export const buildVCard = (someone, companyEmails) => {
+  const lastName = someone.name
+    .split(' ')
+    .slice(1)
+    .join(' ');
   const firstName = someone.name.split(' ')[0];
   const company = buildCompanyName(companyEmails[someone.companyId]);
 
@@ -85,9 +97,4 @@ TEL;TYPE=work:${someone.phone}
 ORG:${company}
 PHOTO;TYPE=work:${someone.avatar}
 END:VCARD`;
-};
-
-module.exports = {
-  getCompanies,
-  buildVCard,
 };
