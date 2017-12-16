@@ -35,6 +35,7 @@
     "flowtype/semi": [1, "always"],
     "flowtype/use-flow-type": 1,
     "import/extensions": 0,
+    "prefer-destructuring": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "no-alert": 0,

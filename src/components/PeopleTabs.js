@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'material-ui/Button';
 import SwipeableViews from 'react-swipeable-views';
 import styled from 'styled-components';
 
@@ -23,47 +22,29 @@ const findCompanyById = (companies, companyId) =>
 
 class PeopleTabs extends React.Component {
   state = {
-    selectedCompany: findCompanyById(
-      this.props.companies,
-      this.props.companyId
-    ),
-    companyId: this.props.companyId
+    selectedCompany: findCompanyById(this.props.companies, this.props.companyId)
   };
 
   handleTabChange = (event, index) => {
-    const selectedCompany = findCompanyById(this.props.companies, index);
     this.setState({
-      companyId: index,
-      selectedCompany
+      selectedCompany: findCompanyById(this.props.companies, index)
     });
   };
 
   handleChangeIndex = index => {
-    const selectedCompany = this.props.companies[index];
     this.setState({
-      companyId: selectedCompany.id,
-      selectedCompany
+      selectedCompany: this.props.companies[index]
     });
   };
 
   render() {
-    const selectedCompany = findCompanyById(
-      this.props.companies,
-      this.state.selectedCompany.id
-    );
     return (
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
         <AppBar
           companies={this.props.companies}
-          companyId={this.state.companyId}
+          companyId={this.state.selectedCompany.id}
           onTabChange={this.handleTabChange}
         />
-        <Button
-          href="https://trello.com/b/JLBMh7wp"
-          style={{ alignSelf: 'center' }}
-        >
-          Add someone
-        </Button>
         <StyledViews>
           <SwipeableViews
             index={this.props.companies.indexOf(this.state.selectedCompany)}

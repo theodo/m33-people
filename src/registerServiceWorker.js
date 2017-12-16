@@ -1,12 +1,4 @@
-// In production, we register a service worker to serve assets from local cache.
-
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on the "N+1" visit to a page, since previously
-// cached resources are updated in the background.
-
-// To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
-// This link also includes instructions on opting out of this behavior.
+var current_version = 'm33-people-v37';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -19,28 +11,72 @@ const isLocalhost = Boolean(
 );
 
 export default function register() {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
-      return;
-    }
-
-    window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-
-      if (isLocalhost) {
-        // This is running on localhost. Lets check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl);
-      } else {
-        // Is not local host. Just register service worker
-        registerValidSW(swUrl);
-      }
-    });
+  // The URL constructor is available in all browsers that support SW.
+  const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
+  if (publicUrl.origin !== window.location.origin) {
+    // Our service worker won't work if PUBLIC_URL is on a different origin
+    // from what our page is served on. This might happen if a CDN is used to
+    // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
+    return;
   }
+
+  window.addEventListener('load', () => {
+    const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+
+    if (isLocalhost) {
+      // This is running on localhost. Lets check if a service worker still exists or not.
+      checkValidServiceWorker(swUrl);
+    } else {
+      // Is not local host. Just register service worker
+      registerValidSW(swUrl);
+    }
+  });
+
+  window.addEventListener('install', e => {
+    e.waitUntil(
+      caches.open(current_version).then(cache => {
+        return cache
+          .addAll([
+            '/m33-people/',
+            '/m33-people/index.html',
+            '/m33-people/dist/app.css',
+            '/m33-people/dist/jquery.min.js',
+            '/m33-people/dist/app.js',
+            '/m33-people/dist/trello.js',
+            '/m33-people/icons/favicon-16x16.png',
+            '/m33-people/icons/favicon-32x32.png',
+            '/m33-people/icons/favicon-96x96.png',
+            'https://fonts.googleapis.com/icon?family=Material+Icons',
+            'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700'
+          ])
+          .then(() => window.skipWaiting());
+      })
+    );
+  });
+
+  window.addEventListener('activate', function(event) {
+    var cacheWhitelist = [current_version];
+
+    event.waitUntil(
+      caches.keys().then(function(keyList) {
+        return Promise.all(
+          keyList.map(function(key) {
+            if (cacheWhitelist.indexOf(key) === -1) {
+              return caches.delete(key);
+            }
+          })
+        );
+      })
+    );
+  });
+
+  window.addEventListener('fetch', event => {
+    event.respondWith(
+      caches.match(event.request).then(response => {
+        return response || fetch(event.request);
+      })
+    );
+  });
 }
 
 function registerValidSW(swUrl) {

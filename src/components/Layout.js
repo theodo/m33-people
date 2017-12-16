@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
 import AuthorizeButton from './Authorize';
 
@@ -73,6 +74,12 @@ class Layout extends React.Component {
 
   renderLayout = () => (
     <React.Fragment>
+      <Button
+        href="https://trello.com/b/JLBMh7wp"
+        style={{ alignSelf: 'center' }}
+      >
+        Add someone
+      </Button>
       <TextField
         label="Search a name, phone number or skill"
         type="search"
