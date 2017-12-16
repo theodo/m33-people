@@ -1,4 +1,4 @@
-var current_version = 'm33-people-v37';
+var current_version = 'm33-people-v38';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
