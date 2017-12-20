@@ -35,12 +35,12 @@
     "flowtype/semi": [1, "always"],
     "flowtype/use-flow-type": 1,
     "import/extensions": 0,
+    "prefer-destructuring": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "no-alert": 0,
     "no-confusing-arrow": 0,
     "no-plusplus": 0,
-    "react/no-unused-prop-types": 0,
     "react/prop-types": 0,
     "react/require-default-props": 0
   }
