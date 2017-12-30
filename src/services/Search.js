@@ -1,6 +1,20 @@
 // @flow
 import deburr from 'lodash/deburr';
 
+const skillsMatches = (contact, lowerCaseSearchText) => {
+  let skillsAreMatching = false;
+
+  if (!!contact.skills) {
+    contact.skills.forEach(skill => {
+      if (skill.indexOf(lowerCaseSearchText) > -1) {
+        skillsAreMatching = true;
+      }
+    });
+  }
+
+  return skillsAreMatching;
+};
+
 const contactIsMatching = (contact, searchText) => {
   const lowerCaseSearchText = searchText.toLowerCase();
   const contactNameMatches =
@@ -12,22 +26,12 @@ const contactIsMatching = (contact, searchText) => {
   const transformedPhoneNumberMatches =
     contact.phone &&
     contact.phone.replace('+33', '0').indexOf(lowerCaseSearchText) > -1;
-  const skillsMatches = (contact) => {
-    if (!contact.skills) {
-      return false;
-    }
-
-    for (const skillIndex in contact.skills) {
-      if (contact.skills[skillIndex].indexOf(lowerCaseSearchText) > -1) {
-        return true;
-      }
-    }
-
-    return false;
-  };
 
   return (
-    contactNameMatches || contactPhoneMatches || transformedPhoneNumberMatches || skillsMatches(contact)
+    contactNameMatches ||
+    contactPhoneMatches ||
+    transformedPhoneNumberMatches ||
+    skillsMatches(contact, lowerCaseSearchText)
   );
 };
 
@@ -37,7 +41,8 @@ const getSearchedPeople = (
 ): Array<*> =>
   companies.reduce((previousPeople: any, company: any) => {
     const filteredPeople = company.people.filter(contact =>
-      contactIsMatching(contact, searchString));
+      contactIsMatching(contact, searchString),
+    );
     return previousPeople.concat(filteredPeople);
   }, []);
 

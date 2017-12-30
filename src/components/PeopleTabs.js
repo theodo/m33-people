@@ -22,7 +22,10 @@ const findCompanyById = (companies, companyId) =>
 
 class PeopleTabs extends React.Component {
   state = {
-    selectedCompany: findCompanyById(this.props.companies, this.props.companyId),
+    selectedCompany: findCompanyById(
+      this.props.companies,
+      this.props.companyId,
+    ),
   };
 
   handleTabChange = (event, index) => {
@@ -31,7 +34,7 @@ class PeopleTabs extends React.Component {
     });
   };
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = index => {
     this.setState({
       selectedCompany: this.props.companies[index],
     });
@@ -56,7 +59,7 @@ class PeopleTabs extends React.Component {
                 people={company.people}
                 companyEmails={this.props.companyEmails}
               />
-              ))}
+            ))}
           </SwipeableViews>
         </StyledViews>
       </div>

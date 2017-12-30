@@ -45,9 +45,9 @@ class Layout extends React.Component {
   };
 
   getCompanies = () => {
-    getCompanies((companies) => {
+    getCompanies(companies => {
       const companyEmails = {};
-      companies.forEach((company) => {
+      companies.forEach(company => {
         companyEmails[company.id] = company.name.split('|')[1];
       });
       this.setState({
@@ -58,7 +58,7 @@ class Layout extends React.Component {
     });
   };
 
-  handleSearchChange = (event) => {
+  handleSearchChange = event => {
     this.setState({
       allSearchedPeople: getSearchedPeople(
         this.state.companies,

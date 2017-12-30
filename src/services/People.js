@@ -6,7 +6,7 @@ import { computeEmail } from './Email';
 
 let companies = [];
 
-const parsePeople = (someoneCard) => {
+const parsePeople = someoneCard => {
   let avatar = null;
   if (someoneCard.attachments.length > 0) {
     avatar = someoneCard.attachments[0].url;
@@ -41,12 +41,12 @@ const parsePeople = (someoneCard) => {
   };
 };
 
-export const getCompanies = (callback) => {
+export const getCompanies = callback => {
   if (companies.length > 0) {
     return callback(companies);
   }
-  return window.Trello.get('/boards/JLBMh7wp/lists?fields=name', (lists) => {
-    window.Trello.get('/boards/JLBMh7wp/cards?attachments=true', (cards) => {
+  return window.Trello.get('/boards/JLBMh7wp/lists?fields=name', lists => {
+    window.Trello.get('/boards/JLBMh7wp/cards?attachments=true', cards => {
       const people = sortBy(cards.map(parsePeople), 'name');
       const peopleByCompanyId = groupBy(people, 'companyId');
       companies = lists.map(list => ({
@@ -64,14 +64,18 @@ export const getCompanies = (callback) => {
     window.localStorage.removeItem('ta_dir_trello_token');
     /* eslint no-alert: "off" */
     if (
-      window.confirm('You are not allow to use this application, maybe, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?')
+      window.confirm(
+        'You are not allow to use this application, maybe, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?',
+      )
     ) {
-      window.open('https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture');
+      window.open(
+        'https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture',
+      );
     }
   });
 };
 
-const buildCompanyName = (companyEmail) => {
+const buildCompanyName = companyEmail => {
   if (companyEmail === '@theodo.co.uk') return 'Theodo UK';
   if (companyEmail === '@bam.tech') return 'BAM';
   return startCase(companyEmail.match(/@(.+)\./)[1]);

@@ -10,7 +10,7 @@ import { computeLegend } from '../services/Email';
 import { buildVCard } from '../services/People';
 
 class PeopleList extends React.Component {
-  itemRenderer = (someone) => {
+  itemRenderer = someone => {
     const legend = computeLegend(someone, this.props.companyEmails);
     return (
       <ListItem
@@ -42,7 +42,9 @@ class PeopleList extends React.Component {
     /* global document */
     const card = buildVCard(someone, companyEmails);
 
-    const src = `data:text/x-vcard;base64,${window.btoa(unescape(encodeURIComponent(card)))}`;
+    const src = `data:text/x-vcard;base64,${window.btoa(
+      unescape(encodeURIComponent(card)),
+    )}`;
     const anchor = document.createElement('a');
     anchor.setAttribute('href', src);
     anchor.click();
