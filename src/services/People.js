@@ -64,13 +64,9 @@ export const getCompanies = (callback) => {
     window.localStorage.removeItem('ta_dir_trello_token');
     /* eslint no-alert: "off" */
     if (
-      window.confirm(
-        'You are not allow to use this application, maybe, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?',
-      )
+      window.confirm('You are not allow to use this application, maybe, you were not added to the trello board https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture ; Go to the board ?')
     ) {
-      window.open(
-        'https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture',
-      );
+      window.open('https://trello.com/b/JLBMh7wp/theodogithubio-m33-people-no-big-picture-to-load-faster-square-picture');
     }
   });
 };

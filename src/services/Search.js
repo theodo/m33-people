@@ -17,7 +17,7 @@ const contactIsMatching = (contact, searchText) => {
       return false;
     }
 
-    for (var skillIndex in contact.skills) {
+    for (const skillIndex in contact.skills) {
       if (contact.skills[skillIndex].indexOf(lowerCaseSearchText) > -1) {
         return true;
       }
@@ -37,8 +37,7 @@ const getSearchedPeople = (
 ): Array<*> =>
   companies.reduce((previousPeople: any, company: any) => {
     const filteredPeople = company.people.filter(contact =>
-      contactIsMatching(contact, searchString),
-    );
+      contactIsMatching(contact, searchString));
     return previousPeople.concat(filteredPeople);
   }, []);
 

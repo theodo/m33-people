@@ -1,14 +1,10 @@
-var current_version = 'm33-people-v38';
+const current_version = 'm33-people-v38';
 
-const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
+const isLocalhost = Boolean(window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
     window.location.hostname === '[::1]' ||
     // 127.0.0.1/8 is considered localhost for IPv4.
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
-);
+    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/));
 
 export default function register() {
   // The URL constructor is available in all browsers that support SW.
@@ -32,57 +28,43 @@ export default function register() {
     }
   });
 
-  window.addEventListener('install', e => {
-    e.waitUntil(
-      caches.open(current_version).then(cache => {
-        return cache
-          .addAll([
-            '/m33-people/',
-            '/m33-people/index.html',
-            '/m33-people/dist/app.css',
-            '/m33-people/dist/jquery.min.js',
-            '/m33-people/dist/app.js',
-            '/m33-people/dist/trello.js',
-            '/m33-people/icons/favicon-16x16.png',
-            '/m33-people/icons/favicon-32x32.png',
-            '/m33-people/icons/favicon-96x96.png',
-            'https://fonts.googleapis.com/icon?family=Material+Icons',
-            'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700'
-          ])
-          .then(() => window.skipWaiting());
-      })
-    );
+  window.addEventListener('install', (e) => {
+    e.waitUntil(caches.open(current_version).then(cache => cache
+      .addAll([
+        '/m33-people/',
+        '/m33-people/index.html',
+        '/m33-people/dist/app.css',
+        '/m33-people/dist/jquery.min.js',
+        '/m33-people/dist/app.js',
+        '/m33-people/dist/trello.js',
+        '/m33-people/icons/favicon-16x16.png',
+        '/m33-people/icons/favicon-32x32.png',
+        '/m33-people/icons/favicon-96x96.png',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700',
+      ])
+      .then(() => window.skipWaiting())));
   });
 
-  window.addEventListener('activate', function(event) {
-    var cacheWhitelist = [current_version];
+  window.addEventListener('activate', (event) => {
+    const cacheWhitelist = [current_version];
 
-    event.waitUntil(
-      caches.keys().then(function(keyList) {
-        return Promise.all(
-          keyList.map(function(key) {
-            if (cacheWhitelist.indexOf(key) === -1) {
-              return caches.delete(key);
-            }
-          })
-        );
-      })
-    );
+    event.waitUntil(caches.keys().then(keyList => Promise.all(keyList.map((key) => {
+      if (cacheWhitelist.indexOf(key) === -1) {
+        return caches.delete(key);
+      }
+    }))));
   });
 
-  window.addEventListener('fetch', event => {
-    event.respondWith(
-      caches.match(event.request).then(response => {
-        return response || fetch(event.request);
-      })
-    );
+  window.addEventListener('fetch', (event) => {
+    event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
   });
 }
 
 function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
-    .then(registration => {
+    .then((registration) => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
@@ -103,7 +85,7 @@ function registerValidSW(swUrl) {
         };
       };
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Error during service worker registration:', error);
     });
 }
@@ -111,14 +93,14 @@ function registerValidSW(swUrl) {
 function checkValidServiceWorker(swUrl) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
-    .then(response => {
+    .then((response) => {
       // Ensure service worker exists, and that we really are getting a JS file.
       if (
         response.status === 404 ||
         response.headers.get('content-type').indexOf('javascript') === -1
       ) {
         // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then(registration => {
+        navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
             window.location.reload();
           });
@@ -129,15 +111,13 @@ function checkValidServiceWorker(swUrl) {
       }
     })
     .catch(() => {
-      console.log(
-        'No internet connection found. App is running in offline mode.'
-      );
+      console.log('No internet connection found. App is running in offline mode.');
     });
 }
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
     });
   }
