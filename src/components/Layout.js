@@ -81,7 +81,7 @@ class Layout extends React.Component {
         Add someone
       </Button>
       <TextField
-        label="Search a name, phone number or skill"
+        label="Search a name, a phone number or a skill"
         type="search"
         onChange={this.handleSearchChange}
         style={{ width: '100%', marginTop: 10 }}
