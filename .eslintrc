@@ -1,19 +1,27 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:flowtype/recommended"],
-  "plugins": ["react", "jsx-a11y", "import", "jest", "flowtype"],
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "jsx-a11y", "import", "jest", "flowtype", "prettier"],
   "env": {
     "jest/globals": true
   },
   "globals": {
     "alert": true,
+    "caches": true,
     "document": true,
+    "fetch": true,
     "localStorage": true,
     "navigator": true,
+    "URL": true,
     "window": true
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "prettier/prettier": "error",
     "react/sort-comp": [
       "error",
       {

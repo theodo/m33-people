@@ -3,9 +3,15 @@
 # dependencies
 /node_modules
 
+# build
+/dist
+/build
+
+# cache
+.cache/
+
 # testing
 /coverage
-
 
 # misc
 .DS_Store

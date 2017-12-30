@@ -43,7 +43,7 @@ class PeopleList extends React.Component {
     const card = buildVCard(someone, companyEmails);
 
     const src = `data:text/x-vcard;base64,${window.btoa(
-      unescape(encodeURIComponent(card))
+      unescape(encodeURIComponent(card)),
     )}`;
     const anchor = document.createElement('a');
     anchor.setAttribute('href', src);

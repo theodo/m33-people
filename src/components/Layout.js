@@ -25,7 +25,7 @@ class Layout extends React.Component {
       companyEmails: {},
       companies,
       searchString: '',
-      allSearchedPeople: []
+      allSearchedPeople: [],
     };
   }
 
@@ -39,7 +39,7 @@ class Layout extends React.Component {
 
   onSignInSuccess = () => {
     this.setState({
-      isAuthenticated: true
+      isAuthenticated: true,
     });
     this.getCompanies();
   };
@@ -53,7 +53,7 @@ class Layout extends React.Component {
       this.setState({
         companies,
         companyEmails,
-        companyId: companies[0] ? companies[0].id : ''
+        companyId: companies[0] ? companies[0].id : '',
       });
     });
   };
@@ -62,9 +62,9 @@ class Layout extends React.Component {
     this.setState({
       allSearchedPeople: getSearchedPeople(
         this.state.companies,
-        event.target.value
+        event.target.value,
       ),
-      searchString: event.target.value
+      searchString: event.target.value,
     });
   };
 
@@ -109,7 +109,7 @@ class Layout extends React.Component {
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       <CircularProgress />

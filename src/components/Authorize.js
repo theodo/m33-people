@@ -25,7 +25,7 @@ class AuthorizeButton extends React.Component {
       type: 'popup',
       name: 'Theodo Academy Directory',
       scope: {
-        read: true
+        read: true,
       },
       expiration: 'never',
       success: () => {
@@ -33,7 +33,7 @@ class AuthorizeButton extends React.Component {
       },
       error: () => {
         console.warn('Error during Trello authorization');
-      }
+      },
     });
   };
   render() {
