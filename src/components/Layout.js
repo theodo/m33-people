@@ -1,7 +1,10 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 import AuthorizeButton from './Authorize';
 
@@ -10,8 +13,27 @@ import getSearchedPeople from '../services/Search';
 import PeopleTabs from './PeopleTabs';
 import List from './PeopleList';
 
-class Layout extends React.Component {
-  constructor(props) {
+const appBarStyle = {
+  backgroundColor: '#eb2f06',
+};
+
+const toolbarStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+const toopbarTitleStyle = {
+  fontSize: 22,
+};
+
+const linkStyle = {
+  marginLeft: 10,
+  color: 'white',
+};
+
+class Layout extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
 
     const companies =
@@ -58,7 +80,7 @@ class Layout extends React.Component {
     });
   };
 
-  handleSearchChange = event => {
+  handleSearchChange = (event: any) => {
     this.setState({
       allSearchedPeople: getSearchedPeople(
         this.state.companies,
@@ -74,6 +96,21 @@ class Layout extends React.Component {
 
   renderLayout = () => (
     <React.Fragment>
+      <AppBar style={appBarStyle} position="absolute">
+        <Toolbar style={toolbarStyle}>
+          <Typography
+            style={toopbarTitleStyle}
+            variant="headline"
+            color="inherit"
+            noWrap
+          >
+            This application is deprecated, please use :
+            <a style={linkStyle} href="https://contacts.m33.network">
+              https://contacts.m33.network
+            </a>
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <Button
         href="https://trello.com/b/JLBMh7wp"
         style={{ alignSelf: 'center' }}
