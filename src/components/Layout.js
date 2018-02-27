@@ -4,10 +4,10 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
-import AuthorizeButton from './Authorize';
+import styled from 'styled-components';
 
+import AuthorizeButton from './Authorize';
 import { getCompanies } from '../services/People';
 import getSearchedPeople from '../services/Search';
 import PeopleTabs from './PeopleTabs';
@@ -17,15 +17,21 @@ const appBarStyle = {
   backgroundColor: '#eb2f06',
 };
 
-const toolbarStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-const toopbarTitleStyle = {
-  fontSize: 22,
-};
+const StyledToolbar = styled(Toolbar)`
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 23px !important;
+  font-family: Roboto !important;
+  @media (max-width: 800px) {
+    font-size: 20px !important;
+    flex-direction: column;
+  }
+  @media (max-width: 640px) {
+    font-size: 18px !important;
+    flex-direction: column;
+  }
+`;
 
 const linkStyle = {
   marginLeft: 10,
@@ -97,19 +103,15 @@ class Layout extends React.Component<any, any> {
   renderLayout = () => (
     <React.Fragment>
       <AppBar style={appBarStyle} position="absolute">
-        <Toolbar style={toolbarStyle}>
-          <Typography
-            style={toopbarTitleStyle}
-            variant="headline"
-            color="inherit"
-            noWrap
-          >
-            This application is deprecated, please use :
+        <StyledToolbar>
+          <div>This application is deprecated, </div>
+          <div>please use :</div>
+          <div>
             <a style={linkStyle} href="https://contacts.m33.network">
               https://contacts.m33.network
             </a>
-          </Typography>
-        </Toolbar>
+          </div>
+        </StyledToolbar>
       </AppBar>
       <Button
         href="https://trello.com/b/JLBMh7wp"
